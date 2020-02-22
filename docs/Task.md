@@ -8,3 +8,6 @@
 
 ## Composer library
 - Add PHP-CS-FIXer follow this one https://github.com/FriendsOfPHP/PHP-CS-Fixer
+
+## Reports Configure
+- Configure ReportBugs for automated CI report https://github.com/settings/installations/5780670 and https://github.com/settings/installations/6730773
