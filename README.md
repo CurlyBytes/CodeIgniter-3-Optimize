@@ -58,7 +58,7 @@ todos: test
 - Use Composer setup and proper format of package __psr1__
 - Follow the GitHub community standard repository for open-source
 <!--
-Todo: Insert table with images about the feature of the project
+Todos: Insert table with images about the feature of the project
 -->
 
 
