@@ -101,7 +101,7 @@ switch (ENVIRONMENT)
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-	$system_path = '../../system';
+	$system_path = '../../vendor/codeigniter/framework/system';
 
 /*
  *---------------------------------------------------------------
@@ -238,7 +238,7 @@ switch (ENVIRONMENT)
 	define('BASEPATH', $system_path);
 
 	// Path to the front controller (this file) directory
-	define('FCPATH', realpath(dirname(__FILE__).'/../..').DIRECTORY_SEPARATOR);
+	define('FCPATH', realpath(dirname(__FILE__).'/../../public').DIRECTORY_SEPARATOR);
 
 	// Name of the "system" directory
 	define('SYSDIR', basename(BASEPATH));
