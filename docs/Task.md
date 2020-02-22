@@ -23,3 +23,7 @@
 
 ## Mergify
 - configure this app https://github.com/settings/installations/6749837 to automerge pending PR that already passed the CI and other validation https://mergify.io/
+
+## Issue label bot
+- will documentation on how to use properly of the issue label bot
+- references https://github.com/settings/installations/5606216
