@@ -10,29 +10,28 @@
 
 // If you use Composer
 if (class_exists('PhpParser\Autoloader')) {
-	if (class_exists('PhpParser\Node\Identifier')) {
-		// PHP-Parser 4.x
-		require __DIR__ . '/4.x/MonkeyPatchManager.php';
-	}
-	elseif (method_exists('PhpParser\Node\Name','set')) {
-		// PHP-Parser 2.x
-		require __DIR__ . '/2.x/MonkeyPatchManager.php';
-	} else {
-		// PHP-Parser 3.x
-		require __DIR__ . '/3.x/MonkeyPatchManager.php';
-	}
+    if (class_exists('PhpParser\Node\Identifier')) {
+        // PHP-Parser 4.x
+        require __DIR__ . '/4.x/MonkeyPatchManager.php';
+    } elseif (method_exists('PhpParser\Node\Name', 'set')) {
+        // PHP-Parser 2.x
+        require __DIR__ . '/2.x/MonkeyPatchManager.php';
+    } else {
+        // PHP-Parser 3.x
+        require __DIR__ . '/3.x/MonkeyPatchManager.php';
+    }
 }
 // If you don't use Composer
 else {
-	if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
-		// Use PHP-Parser 3.x
-		require __DIR__ . '/third_party/PHP-Parser-3.1.5/lib/bootstrap.php';
-		require __DIR__ . '/3.x/MonkeyPatchManager.php';
-	} else {
-		// Use PHP-Parser 2.x
-		require __DIR__ . '/third_party/PHP-Parser-2.1.1/lib/bootstrap.php';
-		require __DIR__ . '/2.x/MonkeyPatchManager.php';
-	}
+    if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
+        // Use PHP-Parser 3.x
+        require __DIR__ . '/third_party/PHP-Parser-3.1.5/lib/bootstrap.php';
+        require __DIR__ . '/3.x/MonkeyPatchManager.php';
+    } else {
+        // Use PHP-Parser 2.x
+        require __DIR__ . '/third_party/PHP-Parser-2.1.1/lib/bootstrap.php';
+        require __DIR__ . '/2.x/MonkeyPatchManager.php';
+    }
 }
 
 require __DIR__ . '/IncludeStream.php';

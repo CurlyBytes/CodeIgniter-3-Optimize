@@ -9,7 +9,8 @@ class CodeParsingTest extends CodeTestAbstract
     /**
      * @dataProvider provideTestParse
      */
-    public function testParse($name, $code, $expected, $modeLine) {
+    public function testParse($name, $code, $expected, $modeLine)
+    {
         if (null !== $modeLine) {
             $modes = array_fill_keys(explode(',', $modeLine), true);
         } else {
@@ -30,7 +31,7 @@ class CodeParsingTest extends CodeTestAbstract
         if (isset($modes['php5'])) {
             $this->assertSame($expected, $output5, $name);
             $this->assertNotSame($expected, $output7, $name);
-        } else if (isset($modes['php7'])) {
+        } elseif (isset($modes['php7'])) {
             $this->assertNotSame($expected, $output5, $name);
             $this->assertSame($expected, $output7, $name);
         } else {
@@ -39,7 +40,8 @@ class CodeParsingTest extends CodeTestAbstract
         }
     }
 
-    private function getParseOutput(Parser $parser, $code, $dumpPositions) {
+    private function getParseOutput(Parser $parser, $code, $dumpPositions)
+    {
         $errors = new ErrorHandler\Collecting;
         $stmts = $parser->parse($code, $errors);
 
@@ -56,11 +58,13 @@ class CodeParsingTest extends CodeTestAbstract
         return canonicalize($output);
     }
 
-    public function provideTestParse() {
+    public function provideTestParse()
+    {
         return $this->getTests(__DIR__ . '/../code/parser', 'test');
     }
 
-    private function formatErrorMessage(Error $e, $code) {
+    private function formatErrorMessage(Error $e, $code)
+    {
         if ($e->hasColumnInfo()) {
             return $e->getMessageWithColumnInfo($code);
         } else {

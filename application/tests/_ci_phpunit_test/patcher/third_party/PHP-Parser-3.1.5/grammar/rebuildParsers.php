@@ -83,10 +83,11 @@ foreach ($grammarFileToName as $grammarFile => $name) {
 /// Preprocessing functions ///
 ///////////////////////////////
 
-function resolveNodes($code) {
+function resolveNodes($code)
+{
     return preg_replace_callback(
         '~\b(?<name>[A-Z][a-zA-Z_\\\\]++)\s*' . PARAMS . '~',
-        function($matches) {
+        function ($matches) {
             // recurse
             $matches['params'] = resolveNodes($matches['params']);
 
@@ -106,10 +107,11 @@ function resolveNodes($code) {
     );
 }
 
-function resolveMacros($code) {
+function resolveMacros($code)
+{
     return preg_replace_callback(
         '~\b(?<!::|->)(?!array\()(?<name>[a-z][A-Za-z]++)' . ARGS . '~',
-        function($matches) {
+        function ($matches) {
             // recurse
             $matches['args'] = resolveMacros($matches['args']);
 
@@ -216,25 +218,29 @@ function resolveMacros($code) {
     );
 }
 
-function assertArgs($num, $args, $name) {
+function assertArgs($num, $args, $name)
+{
     if ($num != count($args)) {
         die('Wrong argument count for ' . $name . '().');
     }
 }
 
-function resolveStackAccess($code) {
+function resolveStackAccess($code)
+{
     $code = preg_replace('/\$\d+/', '$this->semStack[$0]', $code);
     $code = preg_replace('/#(\d+)/', '$$1', $code);
     return $code;
 }
 
-function removeTrailingWhitespace($code) {
+function removeTrailingWhitespace($code)
+{
     $lines = explode("\n", $code);
     $lines = array_map('rtrim', $lines);
     return implode("\n", $lines);
 }
 
-function ensureDirExists($dir) {
+function ensureDirExists($dir)
+{
     if (!is_dir($dir)) {
         mkdir($dir, 0777, true);
     }
@@ -244,11 +250,13 @@ function ensureDirExists($dir) {
 /// Regex helper functions ///
 //////////////////////////////
 
-function regex($regex) {
+function regex($regex)
+{
     return '~' . LIB . '(?:' . str_replace('~', '\~', $regex) . ')~';
 }
 
-function magicSplit($regex, $string) {
+function magicSplit($regex, $string)
+{
     $pieces = preg_split(regex('(?:(?&string)|(?&comment)|(?&code))(*SKIP)(*FAIL)|' . $regex), $string);
 
     foreach ($pieces as &$piece) {

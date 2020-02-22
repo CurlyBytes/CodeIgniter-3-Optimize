@@ -7,7 +7,8 @@ use PhpParser\Node\Scalar\String_;
 
 class NodeTraverserTest extends \PHPUnit_Framework_TestCase
 {
-    public function testNonModifying() {
+    public function testNonModifying()
+    {
         $str1Node = new String_('Foo');
         $str2Node = new String_('Bar');
         $echoNode = new Node\Stmt\Echo_(array($str1Node, $str2Node));
@@ -30,7 +31,8 @@ class NodeTraverserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($stmts, $traverser->traverse($stmts));
     }
 
-    public function testModifying() {
+    public function testModifying()
+    {
         $str1Node  = new String_('Foo');
         $str2Node  = new String_('Bar');
         $printNode = new Expr\Print_($str1Node);
@@ -77,7 +79,8 @@ class NodeTraverserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $traverser->traverse(array()));
     }
 
-    public function testRemove() {
+    public function testRemove()
+    {
         $str1Node = new String_('Foo');
         $str2Node = new String_('Bar');
 
@@ -93,7 +96,8 @@ class NodeTraverserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array($str2Node), $traverser->traverse(array($str1Node, $str2Node)));
     }
 
-    public function testMerge() {
+    public function testMerge()
+    {
         $strStart  = new String_('Start');
         $strMiddle = new String_('End');
         $strEnd    = new String_('Middle');
@@ -115,7 +119,8 @@ class NodeTraverserTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testDeepArray() {
+    public function testDeepArray()
+    {
         $strNode = new String_('Foo');
         $stmts = array(array(array($strNode)));
 
@@ -128,7 +133,8 @@ class NodeTraverserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($stmts, $traverser->traverse($stmts));
     }
 
-    public function testDontTraverseChildren() {
+    public function testDontTraverseChildren()
+    {
         $strNode = new String_('str');
         $printNode = new Expr\Print_($strNode);
         $varNode = new Expr\Variable('foo');
@@ -166,7 +172,8 @@ class NodeTraverserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($stmts, $traverser->traverse($stmts));
     }
 
-    public function testStopTraversal() {
+    public function testStopTraversal()
+    {
         $varNode1 = new Expr\Variable('a');
         $varNode2 = new Expr\Variable('b');
         $varNode3 = new Expr\Variable('c');
@@ -220,10 +227,10 @@ class NodeTraverserTest extends \PHPUnit_Framework_TestCase
         $traverser = new NodeTraverser;
         $traverser->addVisitor($visitor);
         $this->assertEquals([$printNode], $traverser->traverse($stmts));
-
     }
 
-    public function testRemovingVisitor() {
+    public function testRemovingVisitor()
+    {
         $visitor1 = $this->getMockBuilder('PhpParser\NodeVisitor')->getMock();
         $visitor2 = $this->getMockBuilder('PhpParser\NodeVisitor')->getMock();
         $visitor3 = $this->getMockBuilder('PhpParser\NodeVisitor')->getMock();
@@ -242,7 +249,8 @@ class NodeTraverserTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeSame($postExpected, 'visitors', $traverser, 'The appropriate visitors are not present after removal');
     }
 
-    public function testNoCloneNodes() {
+    public function testNoCloneNodes()
+    {
         $stmts = array(new Node\Stmt\Echo_(array(new String_('Foo'), new String_('Bar'))));
 
         $traverser = new NodeTraverser;
@@ -254,7 +262,8 @@ class NodeTraverserTest extends \PHPUnit_Framework_TestCase
      * @expectedException \LogicException
      * @expectedExceptionMessage leaveNode() may only return an array if the parent structure is an array
      */
-    public function testReplaceByArrayOnlyAllowedIfParentIsArray() {
+    public function testReplaceByArrayOnlyAllowedIfParentIsArray()
+    {
         $stmts = array(new Node\Expr\UnaryMinus(new Node\Scalar\LNumber(42)));
 
         $visitor = $this->getMockBuilder('PhpParser\NodeVisitor')->getMock();

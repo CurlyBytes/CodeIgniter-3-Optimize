@@ -17,12 +17,14 @@ class Name extends NodeAbstract
      * @param string|array|self $name       Name as string, part array or Name instance (copy ctor)
      * @param array             $attributes Additional attributes
      */
-    public function __construct($name, array $attributes = array()) {
+    public function __construct($name, array $attributes = array())
+    {
         parent::__construct($attributes);
         $this->parts = self::prepareName($name);
     }
 
-    public function getSubNodeNames() {
+    public function getSubNodeNames()
+    {
         return array('parts');
     }
 
@@ -31,7 +33,8 @@ class Name extends NodeAbstract
      *
      * @return string First part of the name
      */
-    public function getFirst() {
+    public function getFirst()
+    {
         return $this->parts[0];
     }
 
@@ -40,7 +43,8 @@ class Name extends NodeAbstract
      *
      * @return string Last part of the name
      */
-    public function getLast() {
+    public function getLast()
+    {
         return $this->parts[count($this->parts) - 1];
     }
 
@@ -49,7 +53,8 @@ class Name extends NodeAbstract
      *
      * @return bool Whether the name is unqualified
      */
-    public function isUnqualified() {
+    public function isUnqualified()
+    {
         return 1 == count($this->parts);
     }
 
@@ -58,7 +63,8 @@ class Name extends NodeAbstract
      *
      * @return bool Whether the name is qualified
      */
-    public function isQualified() {
+    public function isQualified()
+    {
         return 1 < count($this->parts);
     }
 
@@ -67,7 +73,8 @@ class Name extends NodeAbstract
      *
      * @return bool Whether the name is fully qualified
      */
-    public function isFullyQualified() {
+    public function isFullyQualified()
+    {
         return false;
     }
 
@@ -76,7 +83,8 @@ class Name extends NodeAbstract
      *
      * @return bool Whether the name is relative
      */
-    public function isRelative() {
+    public function isRelative()
+    {
         return false;
     }
 
@@ -86,7 +94,8 @@ class Name extends NodeAbstract
      *
      * @return string String representation
      */
-    public function toString() {
+    public function toString()
+    {
         return implode('\\', $this->parts);
     }
 
@@ -96,7 +105,8 @@ class Name extends NodeAbstract
      *
      * @return string String representation
      */
-    public function __toString() {
+    public function __toString()
+    {
         return implode('\\', $this->parts);
     }
 
@@ -116,7 +126,8 @@ class Name extends NodeAbstract
      *
      * @return static|null Sliced name
      */
-    public function slice($offset, $length = null) {
+    public function slice($offset, $length = null)
+    {
         $numParts = count($this->parts);
 
         $realOffset = $offset < 0 ? $offset + $numParts : $offset;
@@ -158,12 +169,13 @@ class Name extends NodeAbstract
      *
      * @return static|null Concatenated name
      */
-    public static function concat($name1, $name2, array $attributes = []) {
+    public static function concat($name1, $name2, array $attributes = [])
+    {
         if (null === $name1 && null === $name2) {
             return null;
         } elseif (null === $name1) {
             return new static(self::prepareName($name2), $attributes);
-        } else if (null === $name2) {
+        } elseif (null === $name2) {
             return new static(self::prepareName($name1), $attributes);
         } else {
             return new static(
@@ -180,7 +192,8 @@ class Name extends NodeAbstract
      *
      * @return array Prepared name
      */
-    private static function prepareName($name) {
+    private static function prepareName($name)
+    {
         if (\is_string($name)) {
             return explode('\\', $name);
         } elseif (\is_array($name)) {

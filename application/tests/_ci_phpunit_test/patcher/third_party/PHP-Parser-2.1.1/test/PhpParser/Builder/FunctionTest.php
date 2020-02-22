@@ -10,11 +10,13 @@ use PhpParser\Node\Scalar\String_;
 
 class FunctionTest extends \PHPUnit_Framework_TestCase
 {
-    public function createFunctionBuilder($name) {
+    public function createFunctionBuilder($name)
+    {
         return new Function_($name);
     }
 
-    public function testReturnByRef() {
+    public function testReturnByRef()
+    {
         $node = $this->createFunctionBuilder('test')
             ->makeReturnByRef()
             ->getNode()
@@ -28,7 +30,8 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testParams() {
+    public function testParams()
+    {
         $param1 = new Node\Param('test1');
         $param2 = new Node\Param('test2');
         $param3 = new Node\Param('test3');
@@ -47,7 +50,8 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testStmts() {
+    public function testStmts()
+    {
         $stmt1 = new Print_(new String_('test1'));
         $stmt2 = new Print_(new String_('test2'));
         $stmt3 = new Print_(new String_('test3'));
@@ -66,7 +70,8 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testDocComment() {
+    public function testDocComment()
+    {
         $node = $this->createFunctionBuilder('test')
             ->setDocComment('/** Test */')
             ->getNode();
@@ -76,7 +81,8 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
         )), $node);
     }
 
-    public function testReturnType() {
+    public function testReturnType()
+    {
         $node = $this->createFunctionBuilder('test')
             ->setReturnType('bool')
             ->getNode();
@@ -90,7 +96,8 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
      * @expectedException \LogicException
      * @expectedExceptionMessage Expected parameter node, got "Name"
      */
-    public function testInvalidParamError() {
+    public function testInvalidParamError()
+    {
         $this->createFunctionBuilder('test')
             ->addParam(new Node\Name('foo'))
         ;

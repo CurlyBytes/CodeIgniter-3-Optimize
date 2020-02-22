@@ -39,7 +39,8 @@ class NodeTraverser implements NodeTraverserInterface
     /**
      * Constructs a node traverser.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->visitors = array();
     }
 
@@ -48,7 +49,8 @@ class NodeTraverser implements NodeTraverserInterface
      *
      * @param NodeVisitor $visitor Visitor to add
      */
-    public function addVisitor(NodeVisitor $visitor) {
+    public function addVisitor(NodeVisitor $visitor)
+    {
         $this->visitors[] = $visitor;
     }
 
@@ -57,7 +59,8 @@ class NodeTraverser implements NodeTraverserInterface
      *
      * @param NodeVisitor $visitor
      */
-    public function removeVisitor(NodeVisitor $visitor) {
+    public function removeVisitor(NodeVisitor $visitor)
+    {
         foreach ($this->visitors as $index => $storedVisitor) {
             if ($storedVisitor === $visitor) {
                 unset($this->visitors[$index]);
@@ -73,7 +76,8 @@ class NodeTraverser implements NodeTraverserInterface
      *
      * @return Node[] Traversed array of nodes
      */
-    public function traverse(array $nodes) {
+    public function traverse(array $nodes)
+    {
         $this->stopTraversal = false;
 
         foreach ($this->visitors as $visitor) {
@@ -93,7 +97,8 @@ class NodeTraverser implements NodeTraverserInterface
         return $nodes;
     }
 
-    protected function traverseNode(Node $node) {
+    protected function traverseNode(Node $node)
+    {
         foreach ($node->getSubNodeNames() as $name) {
             $subNode =& $node->$name;
 
@@ -108,10 +113,10 @@ class NodeTraverser implements NodeTraverserInterface
                     $return = $visitor->enterNode($subNode);
                     if (self::DONT_TRAVERSE_CHILDREN === $return) {
                         $traverseChildren = false;
-                    } else if (self::STOP_TRAVERSAL === $return) {
+                    } elseif (self::STOP_TRAVERSAL === $return) {
                         $this->stopTraversal = true;
                         break 2;
-                    } else if (null !== $return) {
+                    } elseif (null !== $return) {
                         $subNode = $return;
                     }
                 }
@@ -128,7 +133,7 @@ class NodeTraverser implements NodeTraverserInterface
                     if (self::STOP_TRAVERSAL === $return) {
                         $this->stopTraversal = true;
                         break 2;
-                    } else if (null !== $return) {
+                    } elseif (null !== $return) {
                         if (is_array($return)) {
                             throw new \LogicException(
                                 'leaveNode() may only return an array ' .
@@ -144,7 +149,8 @@ class NodeTraverser implements NodeTraverserInterface
         return $node;
     }
 
-    protected function traverseArray(array $nodes) {
+    protected function traverseArray(array $nodes)
+    {
         $doNodes = array();
 
         foreach ($nodes as $i => &$node) {
@@ -159,10 +165,10 @@ class NodeTraverser implements NodeTraverserInterface
                     $return = $visitor->enterNode($node);
                     if (self::DONT_TRAVERSE_CHILDREN === $return) {
                         $traverseChildren = false;
-                    } else if (self::STOP_TRAVERSAL === $return) {
+                    } elseif (self::STOP_TRAVERSAL === $return) {
                         $this->stopTraversal = true;
                         break 2;
-                    } else if (null !== $return) {
+                    } elseif (null !== $return) {
                         $node = $return;
                     }
                 }
@@ -180,7 +186,7 @@ class NodeTraverser implements NodeTraverserInterface
                     if (self::REMOVE_NODE === $return) {
                         $doNodes[] = array($i, array());
                         break;
-                    } else if (self::STOP_TRAVERSAL === $return) {
+                    } elseif (self::STOP_TRAVERSAL === $return) {
                         $this->stopTraversal = true;
                         break 2;
                     } elseif (is_array($return)) {

@@ -15,7 +15,8 @@ class Comment
      * @param int    $startLine    Line number the comment started on
      * @param int    $startFilePos File offset the comment started on
      */
-    public function __construct($text, $startLine = -1, $startFilePos = -1) {
+    public function __construct($text, $startLine = -1, $startFilePos = -1)
+    {
         $this->text = $text;
         $this->line = $startLine;
         $this->filePos = $startFilePos;
@@ -26,7 +27,8 @@ class Comment
      *
      * @return string The comment text (including comment delimiters like /*)
      */
-    public function getText() {
+    public function getText()
+    {
         return $this->text;
     }
 
@@ -37,7 +39,8 @@ class Comment
      *
      * @deprecated Construct a new comment instead
      */
-    public function setText($text) {
+    public function setText($text)
+    {
         $this->text = $text;
     }
 
@@ -46,7 +49,8 @@ class Comment
      *
      * @return int Line number
      */
-    public function getLine() {
+    public function getLine()
+    {
         return $this->line;
     }
 
@@ -57,7 +61,8 @@ class Comment
      *
      * @deprecated Construct a new comment instead
      */
-    public function setLine($line) {
+    public function setLine($line)
+    {
         $this->line = $line;
     }
 
@@ -66,7 +71,8 @@ class Comment
      *
      * @return int File offset
      */
-    public function getFilePos() {
+    public function getFilePos()
+    {
         return $this->filePos;
     }
 
@@ -75,7 +81,8 @@ class Comment
      *
      * @return string The comment text (including comment delimiters like /*)
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->text;
     }
 
@@ -89,7 +96,8 @@ class Comment
      *
      * @return mixed|string
      */
-    public function getReformattedText() {
+    public function getReformattedText()
+    {
         $text = trim($this->text);
         $newlinePos = strpos($text, "\n");
         if (false === $newlinePos) {
@@ -136,7 +144,8 @@ class Comment
         return $text;
     }
 
-    private function getShortestWhitespacePrefixLen($str) {
+    private function getShortestWhitespacePrefixLen($str)
+    {
         $lines = explode("\n", $str);
         $shortestPrefixLen = INF;
         foreach ($lines as $line) {

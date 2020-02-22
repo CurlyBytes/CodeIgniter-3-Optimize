@@ -20,7 +20,8 @@ class Emulative extends \PhpParser\Lexer
     const PHP_7_0 = '7.0.0dev';
     const PHP_5_6 = '5.6.0rc1';
 
-    public function __construct(array $options = array()) {
+    public function __construct(array $options = array())
+    {
         parent::__construct($options);
 
         $newKeywordsPerVersion = array(
@@ -51,7 +52,8 @@ class Emulative extends \PhpParser\Lexer
         $this->tokenMap[self::T_POW_EQUAL] = Tokens::T_POW_EQUAL;
     }
 
-    public function startLexing($code, ErrorHandler $errorHandler = null) {
+    public function startLexing($code, ErrorHandler $errorHandler = null)
+    {
         $this->inObjectAccess = false;
 
         parent::startLexing($code, $errorHandler);
@@ -63,7 +65,8 @@ class Emulative extends \PhpParser\Lexer
     /*
      * Checks if the code is potentially using features that require emulation.
      */
-    protected function requiresEmulation($code) {
+    protected function requiresEmulation($code)
+    {
         if (version_compare(PHP_VERSION, self::PHP_7_0, '>=')) {
             return false;
         }
@@ -82,7 +85,8 @@ class Emulative extends \PhpParser\Lexer
     /*
      * Emulates tokens for newer PHP versions.
      */
-    protected function emulateTokens() {
+    protected function emulateTokens()
+    {
         // We need to manually iterate and manage a count because we'll change
         // the tokens array on the way
         $line = 1;
@@ -154,7 +158,8 @@ class Emulative extends \PhpParser\Lexer
         }
     }
 
-    public function getNextToken(&$value = null, &$startAttributes = null, &$endAttributes = null) {
+    public function getNextToken(&$value = null, &$startAttributes = null, &$endAttributes = null)
+    {
         $token = parent::getNextToken($value, $startAttributes, $endAttributes);
 
         // replace new keywords by their respective tokens. This is not done

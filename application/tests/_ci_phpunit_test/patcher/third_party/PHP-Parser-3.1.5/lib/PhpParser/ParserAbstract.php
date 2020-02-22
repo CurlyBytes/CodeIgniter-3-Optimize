@@ -117,13 +117,15 @@ abstract class ParserAbstract implements Parser
      * @param Lexer $lexer A lexer
      * @param array $options Options array. Currently no options are supported.
      */
-    public function __construct(Lexer $lexer, array $options = array()) {
+    public function __construct(Lexer $lexer, array $options = array())
+    {
         $this->lexer = $lexer;
         $this->errors = array();
 
         if (isset($options['throwOnError'])) {
             throw new \LogicException(
-                '"throwOnError" is no longer supported, use "errorHandler" instead');
+                '"throwOnError" is no longer supported, use "errorHandler" instead'
+            );
         }
     }
 
@@ -140,7 +142,8 @@ abstract class ParserAbstract implements Parser
      * @return Node[]|null Array of statements (or null if the 'throwOnError' option is disabled and the parser was
      *                     unable to recover from an error).
      */
-    public function parse($code, ErrorHandler $errorHandler = null) {
+    public function parse($code, ErrorHandler $errorHandler = null)
+    {
         $this->errorHandler = $errorHandler ?: new ErrorHandler\Throwing;
 
         // Initialize the lexer
@@ -193,7 +196,8 @@ abstract class ParserAbstract implements Parser
                     if ($symbol === $this->invalidSymbol) {
                         throw new \RangeException(sprintf(
                             'The lexer returned an invalid token (id=%d, value=%s)',
-                            $tokenId, $tokenValue
+                            $tokenId,
+                            $tokenValue
                         ));
                     }
 
@@ -292,6 +296,7 @@ abstract class ParserAbstract implements Parser
                             $msg = $this->getErrorMessage($symbol, $state);
                             $this->emitError(new Error($msg, $startAttributes + $endAttributes));
                             // Break missing intentionally
+                            // no break
                         case 1:
                         case 2:
                             $this->errorState = 3;
@@ -346,11 +351,13 @@ abstract class ParserAbstract implements Parser
         throw new \RuntimeException('Reached end of parser loop');
     }
 
-    protected function emitError(Error $error) {
+    protected function emitError(Error $error)
+    {
         $this->errorHandler->handleError($error);
     }
 
-    protected function getErrorMessage($symbol, $state) {
+    protected function getErrorMessage($symbol, $state)
+    {
         $expectedString = '';
         if ($expected = $this->getExpectedTokens($state)) {
             $expectedString = ', expecting ' . implode(' or ', $expected);
@@ -359,7 +366,8 @@ abstract class ParserAbstract implements Parser
         return 'Syntax error, unexpected ' . $this->symbolToName[$symbol] . $expectedString;
     }
 
-    protected function getExpectedTokens($state) {
+    protected function getExpectedTokens($state)
+    {
         $expected = array();
 
         $base = $this->actionBase[$state];
@@ -432,7 +440,8 @@ abstract class ParserAbstract implements Parser
      * @param Node[] $stmts
      * @return Node[]
      */
-    protected function handleNamespaces(array $stmts) {
+    protected function handleNamespaces(array $stmts)
+    {
         $hasErrored = false;
         $style = $this->getNamespacingStyle($stmts);
         if (null === $style) {
@@ -448,7 +457,9 @@ abstract class ParserAbstract implements Parser
                         && !$stmt instanceof Node\Stmt\Nop
                         && $afterFirstNamespace && !$hasErrored) {
                     $this->emitError(new Error(
-                        'No code may exist outside of namespace {}', $stmt->getAttributes()));
+                        'No code may exist outside of namespace {}',
+                        $stmt->getAttributes()
+                    ));
                     $hasErrored = true; // Avoid one error for every statement
                 }
             }
@@ -479,7 +490,8 @@ abstract class ParserAbstract implements Parser
         }
     }
 
-    private function getNamespacingStyle(array $stmts) {
+    private function getNamespacingStyle(array $stmts)
+    {
         $style = null;
         $hasNotAllowedStmts = false;
         foreach ($stmts as $i => $stmt) {
@@ -522,7 +534,8 @@ abstract class ParserAbstract implements Parser
         return $style;
     }
 
-    protected function handleBuiltinTypes(Name $name) {
+    protected function handleBuiltinTypes(Name $name)
+    {
         $scalarTypes = [
             'bool'     => true,
             'int'      => true,
@@ -547,11 +560,13 @@ abstract class ParserAbstract implements Parser
         'static' => true,
     );
 
-    protected function getAttributesAt($pos) {
+    protected function getAttributesAt($pos)
+    {
         return $this->startAttributeStack[$pos] + $this->endAttributeStack[$pos];
     }
 
-    protected function parseLNumber($str, $attributes, $allowInvalidOctal = false) {
+    protected function parseLNumber($str, $attributes, $allowInvalidOctal = false)
+    {
         try {
             return LNumber::fromString($str, $attributes, $allowInvalidOctal);
         } catch (Error $error) {
@@ -561,7 +576,8 @@ abstract class ParserAbstract implements Parser
         }
     }
 
-    protected function parseNumString($str, $attributes) {
+    protected function parseNumString($str, $attributes)
+    {
         if (!preg_match('/^(?:0|-?[1-9][0-9]*)$/', $str)) {
             return new String_($str, $attributes);
         }
@@ -574,7 +590,8 @@ abstract class ParserAbstract implements Parser
         return new LNumber($num, $attributes);
     }
 
-    protected function checkModifier($a, $b, $modifierPos) {
+    protected function checkModifier($a, $b, $modifierPos)
+    {
         // Jumping through some hoops here because verifyModifier() is also used elsewhere
         try {
             Class_::verifyModifier($a, $b);
@@ -584,7 +601,8 @@ abstract class ParserAbstract implements Parser
         }
     }
 
-    protected function checkParam(Param $node) {
+    protected function checkParam(Param $node)
+    {
         if ($node->variadic && null !== $node->default) {
             $this->emitError(new Error(
                 'Variadic parameter cannot have a default value',
@@ -593,15 +611,18 @@ abstract class ParserAbstract implements Parser
         }
     }
 
-    protected function checkTryCatch(TryCatch $node) {
+    protected function checkTryCatch(TryCatch $node)
+    {
         if (empty($node->catches) && null === $node->finally) {
             $this->emitError(new Error(
-                'Cannot use try without catch or finally', $node->getAttributes()
+                'Cannot use try without catch or finally',
+                $node->getAttributes()
             ));
         }
     }
 
-    protected function checkNamespace(Namespace_ $node) {
+    protected function checkNamespace(Namespace_ $node)
+    {
         if (isset(self::$specialNames[strtolower($node->name)])) {
             $this->emitError(new Error(
                 sprintf('Cannot use \'%s\' as namespace name', $node->name),
@@ -613,14 +634,16 @@ abstract class ParserAbstract implements Parser
             foreach ($node->stmts as $stmt) {
                 if ($stmt instanceof Namespace_) {
                     $this->emitError(new Error(
-                        'Namespace declarations cannot be nested', $stmt->getAttributes()
+                        'Namespace declarations cannot be nested',
+                        $stmt->getAttributes()
                     ));
                 }
             }
         }
     }
 
-    protected function checkClass(Class_ $node, $namePos) {
+    protected function checkClass(Class_ $node, $namePos)
+    {
         if (null !== $node->name && isset(self::$specialNames[strtolower($node->name)])) {
             $this->emitError(new Error(
                 sprintf('Cannot use \'%s\' as class name as it is reserved', $node->name),
@@ -645,7 +668,8 @@ abstract class ParserAbstract implements Parser
         }
     }
 
-    protected function checkInterface(Interface_ $node, $namePos) {
+    protected function checkInterface(Interface_ $node, $namePos)
+    {
         if (null !== $node->name && isset(self::$specialNames[strtolower($node->name)])) {
             $this->emitError(new Error(
                 sprintf('Cannot use \'%s\' as class name as it is reserved', $node->name),
@@ -663,64 +687,79 @@ abstract class ParserAbstract implements Parser
         }
     }
 
-    protected function checkClassMethod(ClassMethod $node, $modifierPos) {
+    protected function checkClassMethod(ClassMethod $node, $modifierPos)
+    {
         if ($node->flags & Class_::MODIFIER_STATIC) {
             switch (strtolower($node->name)) {
                 case '__construct':
                     $this->emitError(new Error(
                         sprintf('Constructor %s() cannot be static', $node->name),
-                        $this->getAttributesAt($modifierPos)));
+                        $this->getAttributesAt($modifierPos)
+                    ));
                     break;
                 case '__destruct':
                     $this->emitError(new Error(
                         sprintf('Destructor %s() cannot be static', $node->name),
-                        $this->getAttributesAt($modifierPos)));
+                        $this->getAttributesAt($modifierPos)
+                    ));
                     break;
                 case '__clone':
                     $this->emitError(new Error(
                         sprintf('Clone method %s() cannot be static', $node->name),
-                        $this->getAttributesAt($modifierPos)));
+                        $this->getAttributesAt($modifierPos)
+                    ));
                     break;
             }
         }
     }
 
-    protected function checkClassConst(ClassConst $node, $modifierPos) {
+    protected function checkClassConst(ClassConst $node, $modifierPos)
+    {
         if ($node->flags & Class_::MODIFIER_STATIC) {
             $this->emitError(new Error(
                 "Cannot use 'static' as constant modifier",
-                $this->getAttributesAt($modifierPos)));
+                $this->getAttributesAt($modifierPos)
+            ));
         }
         if ($node->flags & Class_::MODIFIER_ABSTRACT) {
             $this->emitError(new Error(
                 "Cannot use 'abstract' as constant modifier",
-                $this->getAttributesAt($modifierPos)));
+                $this->getAttributesAt($modifierPos)
+            ));
         }
         if ($node->flags & Class_::MODIFIER_FINAL) {
             $this->emitError(new Error(
                 "Cannot use 'final' as constant modifier",
-                $this->getAttributesAt($modifierPos)));
+                $this->getAttributesAt($modifierPos)
+            ));
         }
     }
 
-    protected function checkProperty(Property $node, $modifierPos) {
+    protected function checkProperty(Property $node, $modifierPos)
+    {
         if ($node->flags & Class_::MODIFIER_ABSTRACT) {
-            $this->emitError(new Error('Properties cannot be declared abstract',
-                $this->getAttributesAt($modifierPos)));
+            $this->emitError(new Error(
+                'Properties cannot be declared abstract',
+                $this->getAttributesAt($modifierPos)
+            ));
         }
 
         if ($node->flags & Class_::MODIFIER_FINAL) {
-            $this->emitError(new Error('Properties cannot be declared final',
-                $this->getAttributesAt($modifierPos)));
+            $this->emitError(new Error(
+                'Properties cannot be declared final',
+                $this->getAttributesAt($modifierPos)
+            ));
         }
     }
 
-    protected function checkUseUse(UseUse $node, $namePos) {
+    protected function checkUseUse(UseUse $node, $namePos)
+    {
         if ('self' == strtolower($node->alias) || 'parent' == strtolower($node->alias)) {
             $this->emitError(new Error(
                 sprintf(
                     'Cannot use %s as %s because \'%2$s\' is a special class name',
-                    $node->name, $node->alias
+                    $node->name,
+                    $node->alias
                 ),
                 $this->getAttributesAt($namePos)
             ));

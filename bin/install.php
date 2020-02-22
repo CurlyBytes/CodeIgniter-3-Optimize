@@ -17,7 +17,8 @@ class Installer
     protected $tmp_dir;
     protected $packages = array();
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->tmp_dir = __DIR__ . '/tmp';
         @mkdir($this->tmp_dir);
         
@@ -123,8 +124,7 @@ class Installer
 
     public function install($package, $version)
     {
-        if (! isset($this->packages[$package]))
-        {
+        if (! isset($this->packages[$package])) {
             return 'Error! no such package: ' . $package . PHP_EOL;
         }
 
@@ -219,7 +219,7 @@ class Installer
     private function unzip($filepath)
     {
         $zip = new ZipArchive();
-        if ($zip->open($filepath) === TRUE) {
+        if ($zip->open($filepath) === true) {
             $tmp = explode('/', $zip->getNameIndex(0));
             $dirname = $tmp[0];
             $zip->extractTo($this->tmp_dir . '/');

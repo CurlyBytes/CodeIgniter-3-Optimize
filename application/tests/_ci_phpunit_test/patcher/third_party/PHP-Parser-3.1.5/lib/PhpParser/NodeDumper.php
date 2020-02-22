@@ -24,7 +24,8 @@ class NodeDumper
      *
      * @param array $options Options (see description)
      */
-    public function __construct(array $options = []) {
+    public function __construct(array $options = [])
+    {
         $this->dumpComments = !empty($options['dumpComments']);
         $this->dumpPositions = !empty($options['dumpPositions']);
     }
@@ -39,12 +40,14 @@ class NodeDumper
      *
      * @return string Dumped value
      */
-    public function dump($node, $code = null) {
+    public function dump($node, $code = null)
+    {
         $this->code = $code;
         return $this->dumpRecursive($node);
     }
 
-    protected function dumpRecursive($node) {
+    protected function dumpRecursive($node)
+    {
         if ($node instanceof Node) {
             $r = $node->getType();
             if ($this->dumpPositions && null !== $p = $this->dumpPosition($node)) {
@@ -65,9 +68,9 @@ class NodeDumper
                 } elseif (is_scalar($value)) {
                     if ('flags' === $key || 'newModifier' === $key) {
                         $r .= $this->dumpFlags($value);
-                    } else if ('type' === $key && $node instanceof Include_) {
+                    } elseif ('type' === $key && $node instanceof Include_) {
                         $r .= $this->dumpIncludeType($value);
-                    } else if ('type' === $key
+                    } elseif ('type' === $key
                             && ($node instanceof Use_ || $node instanceof UseUse || $node instanceof GroupUse)) {
                         $r .= $this->dumpUseType($value);
                     } else {
@@ -108,7 +111,8 @@ class NodeDumper
         return $r . "\n)";
     }
 
-    protected function dumpFlags($flags) {
+    protected function dumpFlags($flags)
+    {
         $strs = [];
         if ($flags & Class_::MODIFIER_PUBLIC) {
             $strs[] = 'MODIFIER_PUBLIC';
@@ -136,7 +140,8 @@ class NodeDumper
         }
     }
 
-    protected function dumpIncludeType($type) {
+    protected function dumpIncludeType($type)
+    {
         $map = [
             Include_::TYPE_INCLUDE      => 'TYPE_INCLUDE',
             Include_::TYPE_INCLUDE_ONCE => 'TYPE_INCLUDE_ONCE',
@@ -150,7 +155,8 @@ class NodeDumper
         return $map[$type] . ' (' . $type . ')';
     }
 
-    protected function dumpUseType($type) {
+    protected function dumpUseType($type)
+    {
         $map = [
             Use_::TYPE_UNKNOWN  => 'TYPE_UNKNOWN',
             Use_::TYPE_NORMAL   => 'TYPE_NORMAL',
@@ -164,7 +170,8 @@ class NodeDumper
         return $map[$type] . ' (' . $type . ')';
     }
 
-    protected function dumpPosition(Node $node) {
+    protected function dumpPosition(Node $node)
+    {
         if (!$node->hasAttribute('startLine') || !$node->hasAttribute('endLine')) {
             return null;
         }
@@ -181,7 +188,8 @@ class NodeDumper
     }
 
     // Copied from Error class
-    private function toColumn($code, $pos) {
+    private function toColumn($code, $pos)
+    {
         if ($pos > strlen($code)) {
             throw new \RuntimeException('Invalid position information');
         }

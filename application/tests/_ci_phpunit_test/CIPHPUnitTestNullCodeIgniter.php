@@ -13,8 +13,8 @@
  */
 class CIPHPUnitTestNullCodeIgniter
 {
-	public function __get($name)
-	{
-		throw new LogicException("CodeIgniter instance is not instantiated yet. You can't use `\$this->$name` at the moment. Please fix your test code.");
-	}
+    public function __get($name)
+    {
+        throw new LogicException("CodeIgniter instance is not instantiated yet. You can't use `\$this->$name` at the moment. Please fix your test code.");
+    }
 }

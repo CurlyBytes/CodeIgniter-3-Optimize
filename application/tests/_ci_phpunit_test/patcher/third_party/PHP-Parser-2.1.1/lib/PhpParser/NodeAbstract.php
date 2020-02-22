@@ -11,7 +11,8 @@ abstract class NodeAbstract implements Node
      *
      * @param array $attributes Array of attributes
      */
-    public function __construct(array $attributes = array()) {
+    public function __construct(array $attributes = array())
+    {
         $this->attributes = $attributes;
     }
 
@@ -20,7 +21,8 @@ abstract class NodeAbstract implements Node
      *
      * @return string Type of the node
      */
-    public function getType() {
+    public function getType()
+    {
         return strtr(substr(rtrim(get_class($this), '_'), 15), '\\', '_');
     }
 
@@ -29,7 +31,8 @@ abstract class NodeAbstract implements Node
      *
      * @return int Line
      */
-    public function getLine() {
+    public function getLine()
+    {
         return $this->getAttribute('startLine', -1);
     }
 
@@ -38,7 +41,8 @@ abstract class NodeAbstract implements Node
      *
      * @param int $line Line
      */
-    public function setLine($line) {
+    public function setLine($line)
+    {
         $this->setAttribute('startLine', (int) $line);
     }
 
@@ -49,7 +53,8 @@ abstract class NodeAbstract implements Node
      *
      * @return null|Comment\Doc Doc comment object or null
      */
-    public function getDocComment() {
+    public function getDocComment()
+    {
         $comments = $this->getAttribute('comments');
         if (!$comments) {
             return null;
@@ -63,15 +68,18 @@ abstract class NodeAbstract implements Node
         return $lastComment;
     }
 
-    public function setAttribute($key, $value) {
+    public function setAttribute($key, $value)
+    {
         $this->attributes[$key] = $value;
     }
 
-    public function hasAttribute($key) {
+    public function hasAttribute($key)
+    {
         return array_key_exists($key, $this->attributes);
     }
 
-    public function &getAttribute($key, $default = null) {
+    public function &getAttribute($key, $default = null)
+    {
         if (!array_key_exists($key, $this->attributes)) {
             return $default;
         } else {
@@ -79,7 +87,8 @@ abstract class NodeAbstract implements Node
         }
     }
 
-    public function getAttributes() {
+    public function getAttributes()
+    {
         return $this->attributes;
     }
 }

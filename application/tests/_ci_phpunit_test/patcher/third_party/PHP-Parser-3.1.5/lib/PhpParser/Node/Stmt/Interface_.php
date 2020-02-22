@@ -18,14 +18,16 @@ class Interface_ extends ClassLike
      *                           'stmts'   => array(): Statements
      * @param array  $attributes Additional attributes
      */
-    public function __construct($name, array $subNodes = array(), array $attributes = array()) {
+    public function __construct($name, array $subNodes = array(), array $attributes = array())
+    {
         parent::__construct($attributes);
         $this->name = $name;
         $this->extends = isset($subNodes['extends']) ? $subNodes['extends'] : array();
         $this->stmts = isset($subNodes['stmts']) ? $subNodes['stmts'] : array();
     }
 
-    public function getSubNodeNames() {
+    public function getSubNodeNames()
+    {
         return array('name', 'extends', 'stmts');
     }
 }

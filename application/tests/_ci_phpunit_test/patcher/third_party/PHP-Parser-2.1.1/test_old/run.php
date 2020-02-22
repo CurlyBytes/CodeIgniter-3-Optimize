@@ -7,7 +7,8 @@ if ('cli' !== php_sapi_name()) {
     die('This script is designed for running on the command line.');
 }
 
-function showHelp($error) {
+function showHelp($error)
+{
     die($error . "\n\n" .
 <<<OUTPUT
 This script has to be called with the following signature:
@@ -60,20 +61,20 @@ $dir = $arguments[1];
 switch ($testType) {
     case 'Symfony':
         $version = 'Php5';
-        $fileFilter = function($path) {
+        $fileFilter = function ($path) {
             return preg_match('~\.php(?:\.cache)?$~', $path) && false === strpos($path, 'skeleton');
         };
-        $codeExtractor = function($file, $code) {
+        $codeExtractor = function ($file, $code) {
             return $code;
         };
         break;
     case 'PHP5':
     case 'PHP7':
     $version = $testType === 'PHP5' ? 'Php5' : 'Php7';
-        $fileFilter = function($path) {
+        $fileFilter = function ($path) {
             return preg_match('~\.phpt$~', $path);
         };
-        $codeExtractor = function($file, $code) {
+        $codeExtractor = function ($file, $code) {
             if (preg_match('~(?:
 # skeleton files
   ext.gmp.tests.001
@@ -127,8 +128,9 @@ $readTime = $parseTime = $ppTime = $reparseTime = $compareTime = 0;
 $totalStartTime = microtime(true);
 
 foreach (new RecursiveIteratorIterator(
-             new RecursiveDirectoryIterator($dir),
-             RecursiveIteratorIterator::LEAVES_ONLY)
+    new RecursiveDirectoryIterator($dir),
+    RecursiveIteratorIterator::LEAVES_ONLY
+)
          as $file) {
     if (!$fileFilter($file)) {
         continue;

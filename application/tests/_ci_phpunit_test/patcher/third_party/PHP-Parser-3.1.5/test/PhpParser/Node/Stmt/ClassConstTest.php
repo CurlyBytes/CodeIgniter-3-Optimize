@@ -7,7 +7,8 @@ class ClassConstTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider provideModifiers
      */
-    public function testModifiers($modifier) {
+    public function testModifiers($modifier)
+    {
         $node = new ClassConst(
             array(), // invalid
             constant('PhpParser\Node\Stmt\Class_::MODIFIER_' . strtoupper($modifier))
@@ -16,7 +17,8 @@ class ClassConstTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($node->{'is' . $modifier}());
     }
 
-    public function testNoModifiers() {
+    public function testNoModifiers()
+    {
         $node = new ClassConst(array(), 0);
 
         $this->assertTrue($node->isPublic());
@@ -25,7 +27,8 @@ class ClassConstTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($node->isStatic());
     }
 
-    public function provideModifiers() {
+    public function provideModifiers()
+    {
         return array(
             array('public'),
             array('protected'),

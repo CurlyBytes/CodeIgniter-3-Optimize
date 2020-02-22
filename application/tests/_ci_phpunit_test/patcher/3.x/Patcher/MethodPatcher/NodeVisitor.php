@@ -18,14 +18,13 @@ use Kenjis\MonkeyPatch\Patcher\MethodPatcher;
 
 class NodeVisitor extends NodeVisitorAbstract
 {
-	public function leaveNode(Node $node)
-	{
-		if (! ($node instanceof ClassMethod))
-		{
-			return;
-		}
+    public function leaveNode(Node $node)
+    {
+        if (! ($node instanceof ClassMethod)) {
+            return;
+        }
 
-		$pos = $node->getAttribute('startTokenPos');
-		MethodPatcher::$replacement[$pos] = true;
-	}
+        $pos = $node->getAttribute('startTokenPos');
+        MethodPatcher::$replacement[$pos] = true;
+    }
 }

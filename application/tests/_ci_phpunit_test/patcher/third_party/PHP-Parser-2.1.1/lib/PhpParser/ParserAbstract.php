@@ -104,7 +104,8 @@ abstract class ParserAbstract implements Parser
      *                       thrown on first error, or if the parser should try to continue parsing the remaining code
      *                       and build a partial AST.
      */
-    public function __construct(Lexer $lexer, array $options = array()) {
+    public function __construct(Lexer $lexer, array $options = array())
+    {
         $this->lexer = $lexer;
         $this->errors = array();
         $this->throwOnError = isset($options['throwOnError']) ? $options['throwOnError'] : true;
@@ -117,7 +118,8 @@ abstract class ParserAbstract implements Parser
      *
      * @return Error[]
      */
-    public function getErrors() {
+    public function getErrors()
+    {
         return $this->errors;
     }
 
@@ -129,7 +131,8 @@ abstract class ParserAbstract implements Parser
      * @return Node[]|null Array of statements (or null if the 'throwOnError' option is disabled and the parser was
      *                     unable to recover from an error).
      */
-    public function parse($code) {
+    public function parse($code)
+    {
         $this->lexer->startLexing($code);
         $this->errors = array();
 
@@ -180,7 +183,8 @@ abstract class ParserAbstract implements Parser
                     if ($symbol === $this->invalidSymbol) {
                         throw new \RangeException(sprintf(
                             'The lexer returned an invalid token (id=%d, value=%s)',
-                            $tokenId, $tokenValue
+                            $tokenId,
+                            $tokenValue
                         ));
                     }
 
@@ -283,6 +287,7 @@ abstract class ParserAbstract implements Parser
                                 throw $error;
                             }
                             // Break missing intentionally
+                            // no break
                         case 1:
                         case 2:
                             $errorState = 3;
@@ -331,7 +336,8 @@ abstract class ParserAbstract implements Parser
         throw new \RuntimeException('Reached end of parser loop');
     }
 
-    protected function getErrorMessage($symbol, $state) {
+    protected function getErrorMessage($symbol, $state)
+    {
         $expectedString = '';
         if ($expected = $this->getExpectedTokens($state)) {
             $expectedString = ', expecting ' . implode(' or ', $expected);
@@ -340,7 +346,8 @@ abstract class ParserAbstract implements Parser
         return 'Syntax error, unexpected ' . $this->symbolToName[$symbol] . $expectedString;
     }
 
-    protected function getExpectedTokens($state) {
+    protected function getExpectedTokens($state)
+    {
         $expected = array();
 
         $base = $this->actionBase[$state];
@@ -412,7 +419,8 @@ abstract class ParserAbstract implements Parser
      * @param Node[] $stmts
      * @return Node[]
      */
-    protected function handleNamespaces(array $stmts) {
+    protected function handleNamespaces(array $stmts)
+    {
         $style = $this->getNamespacingStyle($stmts);
         if (null === $style) {
             // not namespaced, nothing to do
@@ -448,7 +456,8 @@ abstract class ParserAbstract implements Parser
         }
     }
 
-    private function getNamespacingStyle(array $stmts) {
+    private function getNamespacingStyle(array $stmts)
+    {
         $style = null;
         $hasNotAllowedStmts = false;
         foreach ($stmts as $i => $stmt) {
@@ -483,7 +492,8 @@ abstract class ParserAbstract implements Parser
         return $style;
     }
 
-    protected function handleScalarTypes(Name $name) {
+    protected function handleScalarTypes(Name $name)
+    {
         $scalarTypes = [
             'bool'   => true,
             'int'    => true,
