@@ -11,3 +11,9 @@
 
 ## Reports Configure
 - Configure ReportBugs for automated CI report https://github.com/settings/installations/5780670 and https://github.com/settings/installations/6730773
+
+
+#Optmization
+
+## Static code blogs
+- configure https://www.prscheduler.com/docs for time deployment merge
