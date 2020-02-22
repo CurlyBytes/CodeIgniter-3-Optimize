@@ -15,9 +15,9 @@ version="$1"
 
 . ../../../../bin/filelist.sh
 
-for i in $list
+for i in "$list"
 do
-	(cd `dirname $i`
-	mv -i "`basename $i`" "old/$version-`basename $i`"
-	echo "$i -> old/$version-`basename $i`")
+	(cd "$(dirname "$i")"
+	mv -i "$(basename "$i")" "old/$version-$(basename "$i")"
+	echo "$i -> old/$version-$(basename "$i")")
 done
