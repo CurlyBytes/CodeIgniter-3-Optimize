@@ -2,13 +2,15 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: ''
-assignees: ''
+labels: bug
+assignees: cocoytech
 
 ---
 
 **Describe the bug**
 A clear and concise description of what the bug is.
+- Make sure you’re on the latest version
+- Used the search feature to ensure that the bug hasn’t been reported before
 
 **To Reproduce**
 Steps to reproduce the behavior:
@@ -19,6 +21,9 @@ Steps to reproduce the behavior:
 
 **Expected behavior**
 A clear and concise description of what you expected to happen.
+
+**Actual behavior**
+How did it actually behave?
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
