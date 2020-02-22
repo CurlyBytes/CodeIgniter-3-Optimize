@@ -27,7 +27,8 @@ class Param extends NodeAbstract
      * @param bool                          $variadic   Whether this is a variadic argument
      * @param array                         $attributes Additional attributes
      */
-    public function __construct($name, Expr $default = null, $type = null, $byRef = false, $variadic = false, array $attributes = array()) {
+    public function __construct($name, Expr $default = null, $type = null, $byRef = false, $variadic = false, array $attributes = array())
+    {
         parent::__construct($attributes);
         $this->type = $type;
         $this->byRef = $byRef;
@@ -36,7 +37,8 @@ class Param extends NodeAbstract
         $this->default = $default;
     }
 
-    public function getSubNodeNames() {
+    public function getSubNodeNames()
+    {
         return array('type', 'byRef', 'variadic', 'name', 'default');
     }
 }

@@ -14,9 +14,9 @@ use RuntimeException;
 
 class ExitException extends RuntimeException
 {
-	public $file;
-	public $line;
-	public $class;
-	public $method;
-	public $exit_status;
+    public $file;
+    public $line;
+    public $class;
+    public $method;
+    public $exit_status;
 }

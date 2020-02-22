@@ -22,7 +22,8 @@ class UseUse extends Node\Stmt
      * @param int         $type       Type of the use element (for mixed group use declarations only)
      * @param array       $attributes Additional attributes
      */
-    public function __construct(Node\Name $name, $alias = null, $type = Use_::TYPE_UNKNOWN, array $attributes = array()) {
+    public function __construct(Node\Name $name, $alias = null, $type = Use_::TYPE_UNKNOWN, array $attributes = array())
+    {
         if (null === $alias) {
             $alias = $name->getLast();
         }
@@ -30,7 +31,8 @@ class UseUse extends Node\Stmt
         if ('self' == strtolower($alias) || 'parent' == strtolower($alias)) {
             throw new Error(sprintf(
                 'Cannot use %s as %s because \'%2$s\' is a special class name',
-                $name, $alias
+                $name,
+                $alias
             ));
         }
 
@@ -40,7 +42,8 @@ class UseUse extends Node\Stmt
         $this->alias = $alias;
     }
 
-    public function getSubNodeNames() {
+    public function getSubNodeNames()
+    {
         return array('type', 'name', 'alias');
     }
 }

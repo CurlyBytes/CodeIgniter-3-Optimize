@@ -7,7 +7,8 @@ use PhpParser\Comment;
 
 class XMLTest extends \PHPUnit_Framework_TestCase
 {
-    public function testNode() {
+    public function testNode()
+    {
         $xml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <AST xmlns:node="http://nikic.github.com/PHPParser/XML/node" xmlns:subNode="http://nikic.github.com/PHPParser/XML/subNode" xmlns:attribute="http://nikic.github.com/PHPParser/XML/attribute" xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar">
@@ -42,7 +43,8 @@ XML;
         );
     }
 
-    public function testEmptyNode() {
+    public function testEmptyNode()
+    {
         $xml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <AST xmlns:node="http://nikic.github.com/PHPParser/XML/node">
@@ -58,7 +60,8 @@ XML;
         );
     }
 
-    public function testScalars() {
+    public function testScalars()
+    {
         $xml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <AST xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar">
@@ -93,7 +96,8 @@ XML;
      * @expectedException        \DomainException
      * @expectedExceptionMessage AST root element not found
      */
-    public function testWrongRootElementError() {
+    public function testWrongRootElementError()
+    {
         $xml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <notAST/>
@@ -106,7 +110,8 @@ XML;
     /**
      * @dataProvider             provideTestErrors
      */
-    public function testErrors($xml, $errorMsg) {
+    public function testErrors($xml, $errorMsg)
+    {
         $this->setExpectedException('DomainException', $errorMsg);
 
         $xml = <<<XML
@@ -123,7 +128,8 @@ XML;
         $unserializer->unserialize($xml);
     }
 
-    public function provideTestErrors() {
+    public function provideTestErrors()
+    {
         return array(
             array('<scalar:true>test</scalar:true>',   '"true" scalar must be empty'),
             array('<scalar:false>test</scalar:false>', '"false" scalar must be empty'),

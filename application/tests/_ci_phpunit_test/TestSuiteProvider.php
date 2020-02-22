@@ -2,7 +2,7 @@
 /**
  * Test Suite Provider for NetBeans
  * https://github.com/BrickieToolShed/netbeans-phpunit-support
- * 
+ *
  * Modified 2015 by Kenji Suzuki <https://github.com/kenjis>
  * @link       https://github.com/kenjis/ci-phpunit-test
  */
@@ -62,7 +62,9 @@ final class TestSuiteProvider
     /**
      * constructor
      */
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     /**
      * set the phpunit configuration file

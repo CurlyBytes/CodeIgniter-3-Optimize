@@ -8,14 +8,16 @@ use PhpParser\Node\Scalar;
 
 class ParamTest extends \PHPUnit_Framework_TestCase
 {
-    public function createParamBuilder($name) {
+    public function createParamBuilder($name)
+    {
         return new Param($name);
     }
 
     /**
      * @dataProvider provideTestDefaultValues
      */
-    public function testDefaultValues($value, $expectedValueNode) {
+    public function testDefaultValues($value, $expectedValueNode)
+    {
         $node = $this->createParamBuilder('test')
             ->setDefault($value)
             ->getNode()
@@ -24,7 +26,8 @@ class ParamTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedValueNode, $node->default);
     }
 
-    public function provideTestDefaultValues() {
+    public function provideTestDefaultValues()
+    {
         return array(
             array(
                 null,
@@ -81,7 +84,8 @@ class ParamTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider provideTestTypeHints
      */
-    public function testTypeHints($typeHint, $expectedType) {
+    public function testTypeHints($typeHint, $expectedType)
+    {
         $node = $this->createParamBuilder('test')
             ->setTypeHint($typeHint)
             ->getNode()
@@ -103,7 +107,8 @@ class ParamTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function provideTestTypeHints() {
+    public function provideTestTypeHints()
+    {
         return array(
             array('array', 'array'),
             array('callable', 'callable'),
@@ -133,7 +138,8 @@ class ParamTest extends \PHPUnit_Framework_TestCase
      * @expectedException \LogicException
      * @expectedExceptionMessage Parameter type cannot be void
      */
-    public function testVoidTypeError() {
+    public function testVoidTypeError()
+    {
         $this->createParamBuilder('test')->setTypeHint('void');
     }
 
@@ -141,11 +147,13 @@ class ParamTest extends \PHPUnit_Framework_TestCase
      * @expectedException \LogicException
      * @expectedExceptionMessage Type must be a string, or an instance of Name or NullableType
      */
-    public function testInvalidTypeError() {
+    public function testInvalidTypeError()
+    {
         $this->createParamBuilder('test')->setTypeHint(new \stdClass);
     }
 
-    public function testByRef() {
+    public function testByRef()
+    {
         $node = $this->createParamBuilder('test')
             ->makeByRef()
             ->getNode()
@@ -157,7 +165,8 @@ class ParamTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testVariadic() {
+    public function testVariadic()
+    {
         $node = $this->createParamBuilder('test')
             ->makeVariadic()
             ->getNode()

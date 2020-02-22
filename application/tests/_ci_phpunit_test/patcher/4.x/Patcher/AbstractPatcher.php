@@ -17,41 +17,38 @@ use Kenjis\MonkeyPatch\MonkeyPatchManager;
 
 abstract class AbstractPatcher
 {
-	protected $node_visitor;
+    protected $node_visitor;
 
-	public static $replacement;
+    public static $replacement;
 
-	public function patch($source)
-	{
-		$patched = false;
-		static::$replacement = [];
+    public function patch($source)
+    {
+        $patched = false;
+        static::$replacement = [];
 
-		$parser = (new ParserFactory)
-			->create(
-				MonkeyPatchManager::getPhpParser(),
-				new Lexer(
-					['usedAttributes' => ['startTokenPos', 'endTokenPos']]
-				)
-			);
-		$traverser = new NodeTraverser;
-		$traverser->addVisitor($this->node_visitor);
+        $parser = (new ParserFactory)
+            ->create(
+                MonkeyPatchManager::getPhpParser(),
+                new Lexer(
+                    ['usedAttributes' => ['startTokenPos', 'endTokenPos']]
+                )
+            );
+        $traverser = new NodeTraverser;
+        $traverser->addVisitor($this->node_visitor);
 
-		$ast_orig = $parser->parse($source);
-		$traverser->traverse($ast_orig);
+        $ast_orig = $parser->parse($source);
+        $traverser->traverse($ast_orig);
 
-		if (static::$replacement !== [])
-		{
-			$patched = true;
-			$new_source = static::generateNewSource($source);
-		}
-		else
-		{
-			$new_source = $source;
-		}
+        if (static::$replacement !== []) {
+            $patched = true;
+            $new_source = static::generateNewSource($source);
+        } else {
+            $new_source = $source;
+        }
 
-		return [
-			$new_source,
-			$patched,
-		];
-	}
+        return [
+            $new_source,
+            $patched,
+        ];
+    }
 }

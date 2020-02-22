@@ -1,15 +1,15 @@
-Code generation
-===============
+# Code generation
 
-It is also possible to generate code using the parser, by first creating an Abstract Syntax Tree and then using the
-pretty printer to convert it to PHP code. To simplify code generation, the project comes with builders which allow
-creating node trees using a fluid interface, instead of instantiating all nodes manually. Builders are available for
-the following syntactic elements:
+It is also possible to generate code using the parser, by first creating an
+Abstract Syntax Tree and then using the pretty printer to convert it to PHP
+code. To simplify code generation, the project comes with builders which allow
+creating node trees using a fluid interface, instead of instantiating all nodes
+manually. Builders are available for the following syntactic elements:
 
- * namespaces and use statements
- * classes, interfaces and traits
- * methods, functions and parameters
- * properties
+- namespaces and use statements
+- classes, interfaces and traits
+- methods, functions and parameters
+- properties
 
 Here is an example:
 

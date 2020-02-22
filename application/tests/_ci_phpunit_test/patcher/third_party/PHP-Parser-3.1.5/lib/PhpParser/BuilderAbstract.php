@@ -9,7 +9,8 @@ use PhpParser\Node\NullableType;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
 
-abstract class BuilderAbstract implements Builder {
+abstract class BuilderAbstract implements Builder
+{
     /**
      * Normalizes a node: Converts builder objects to nodes.
      *
@@ -17,7 +18,8 @@ abstract class BuilderAbstract implements Builder {
      *
      * @return Node The normalized node
      */
-    protected function normalizeNode($node) {
+    protected function normalizeNode($node)
+    {
         if ($node instanceof Builder) {
             return $node->getNode();
         } elseif ($node instanceof Node) {
@@ -34,7 +36,8 @@ abstract class BuilderAbstract implements Builder {
      *
      * @return Name The normalized name
      */
-    protected function normalizeName($name) {
+    protected function normalizeName($name)
+    {
         if ($name instanceof Name) {
             return $name;
         } elseif (is_string($name)) {
@@ -64,11 +67,13 @@ abstract class BuilderAbstract implements Builder {
      *
      * @return Name|string|NullableType The normalized type
      */
-    protected function normalizeType($type) {
+    protected function normalizeType($type)
+    {
         if (!is_string($type)) {
             if (!$type instanceof Name && !$type instanceof NullableType) {
                 throw new \LogicException(
-                    'Type must be a string, or an instance of Name or NullableType');
+                    'Type must be a string, or an instance of Name or NullableType'
+                );
             }
             return $type;
         }
@@ -105,7 +110,8 @@ abstract class BuilderAbstract implements Builder {
      *
      * @return Expr The normalized value
      */
-    protected function normalizeValue($value) {
+    protected function normalizeValue($value)
+    {
         if ($value instanceof Node) {
             return $value;
         } elseif (is_null($value)) {
@@ -153,10 +159,11 @@ abstract class BuilderAbstract implements Builder {
      *
      * @return Comment\Doc The normalized doc comment
      */
-    protected function normalizeDocComment($docComment) {
+    protected function normalizeDocComment($docComment)
+    {
         if ($docComment instanceof Comment\Doc) {
             return $docComment;
-        } else if (is_string($docComment)) {
+        } elseif (is_string($docComment)) {
             return new Comment\Doc($docComment);
         } else {
             throw new \LogicException('Doc comment must be a string or an instance of PhpParser\Comment\Doc');
@@ -168,7 +175,8 @@ abstract class BuilderAbstract implements Builder {
      *
      * @param int $modifier Modifier to set
      */
-    protected function setModifier($modifier) {
+    protected function setModifier($modifier)
+    {
         Stmt\Class_::verifyModifier($this->flags, $modifier);
         $this->flags |= $modifier;
     }

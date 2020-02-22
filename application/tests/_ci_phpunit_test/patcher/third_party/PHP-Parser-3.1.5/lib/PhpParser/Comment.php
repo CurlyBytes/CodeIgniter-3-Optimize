@@ -15,7 +15,8 @@ class Comment implements \JsonSerializable
      * @param int    $startLine    Line number the comment started on
      * @param int    $startFilePos File offset the comment started on
      */
-    public function __construct($text, $startLine = -1, $startFilePos = -1) {
+    public function __construct($text, $startLine = -1, $startFilePos = -1)
+    {
         $this->text = $text;
         $this->line = $startLine;
         $this->filePos = $startFilePos;
@@ -26,7 +27,8 @@ class Comment implements \JsonSerializable
      *
      * @return string The comment text (including comment delimiters like /*)
      */
-    public function getText() {
+    public function getText()
+    {
         return $this->text;
     }
 
@@ -35,7 +37,8 @@ class Comment implements \JsonSerializable
      *
      * @return int Line number
      */
-    public function getLine() {
+    public function getLine()
+    {
         return $this->line;
     }
 
@@ -44,7 +47,8 @@ class Comment implements \JsonSerializable
      *
      * @return int File offset
      */
-    public function getFilePos() {
+    public function getFilePos()
+    {
         return $this->filePos;
     }
 
@@ -53,7 +57,8 @@ class Comment implements \JsonSerializable
      *
      * @return string The comment text (including comment delimiters like /*)
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->text;
     }
 
@@ -67,7 +72,8 @@ class Comment implements \JsonSerializable
      *
      * @return mixed|string
      */
-    public function getReformattedText() {
+    public function getReformattedText()
+    {
         $text = trim($this->text);
         $newlinePos = strpos($text, "\n");
         if (false === $newlinePos) {
@@ -114,7 +120,8 @@ class Comment implements \JsonSerializable
         return $text;
     }
 
-    private function getShortestWhitespacePrefixLen($str) {
+    private function getShortestWhitespacePrefixLen($str)
+    {
         $lines = explode("\n", $str);
         $shortestPrefixLen = INF;
         foreach ($lines as $line) {
@@ -127,7 +134,8 @@ class Comment implements \JsonSerializable
         return $shortestPrefixLen;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         // Technically not a node, but we make it look like one anyway
         $type = $this instanceof Comment\Doc ? 'Comment_Doc' : 'Comment';
         return [

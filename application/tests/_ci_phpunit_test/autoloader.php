@@ -12,7 +12,7 @@
 require __DIR__ . '/CIPHPUnitTestAutoloader.php';
 require __DIR__ . '/CIPHPUnitTestFileCache.php';
 $cache = new CIPHPUnitTestFileCache(
-	__DIR__ . '/tmp/cache/autoload.php'
+    __DIR__ . '/tmp/cache/autoload.php'
 );
 $autoload_dirs = CIPHPUnitTest::getAutoloadDirs();
 $autoloader = new CIPHPUnitTestAutoloader($cache, $autoload_dirs);

@@ -4,7 +4,8 @@ namespace PhpParser\Node;
 
 class NameTest extends \PHPUnit_Framework_TestCase
 {
-    public function testConstruct() {
+    public function testConstruct()
+    {
         $name = new Name(array('foo', 'bar'));
         $this->assertSame(array('foo', 'bar'), $name->parts);
 
@@ -15,7 +16,8 @@ class NameTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array('foo', 'bar'), $name->parts);
     }
 
-    public function testGet() {
+    public function testGet()
+    {
         $name = new Name('foo');
         $this->assertSame('foo', $name->getFirst());
         $this->assertSame('foo', $name->getLast());
@@ -25,14 +27,16 @@ class NameTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('bar', $name->getLast());
     }
 
-    public function testToString() {
+    public function testToString()
+    {
         $name = new Name('foo\bar');
 
         $this->assertSame('foo\bar', (string) $name);
         $this->assertSame('foo\bar', $name->toString());
     }
 
-    public function testSlice() {
+    public function testSlice()
+    {
         $name = new Name('foo\bar\baz');
         $this->assertEquals(new Name('foo\bar\baz'), $name->slice(0));
         $this->assertEquals(new Name('bar\baz'), $name->slice(1));
@@ -52,7 +56,8 @@ class NameTest extends \PHPUnit_Framework_TestCase
      * @expectedException \OutOfBoundsException
      * @expectedExceptionMessage Offset 4 is out of bounds
      */
-    public function testSliceOffsetTooLarge() {
+    public function testSliceOffsetTooLarge()
+    {
         (new Name('foo\bar\baz'))->slice(4);
     }
 
@@ -60,7 +65,8 @@ class NameTest extends \PHPUnit_Framework_TestCase
      * @expectedException \OutOfBoundsException
      * @expectedExceptionMessage Offset -4 is out of bounds
      */
-    public function testSliceOffsetTooSmall() {
+    public function testSliceOffsetTooSmall()
+    {
         (new Name('foo\bar\baz'))->slice(-4);
     }
 
@@ -68,7 +74,8 @@ class NameTest extends \PHPUnit_Framework_TestCase
      * @expectedException \OutOfBoundsException
      * @expectedExceptionMessage Length 4 is out of bounds
      */
-    public function testSliceLengthTooLarge() {
+    public function testSliceLengthTooLarge()
+    {
         (new Name('foo\bar\baz'))->slice(0, 4);
     }
 
@@ -76,11 +83,13 @@ class NameTest extends \PHPUnit_Framework_TestCase
      * @expectedException \OutOfBoundsException
      * @expectedExceptionMessage Length -4 is out of bounds
      */
-    public function testSliceLengthTooSmall() {
+    public function testSliceLengthTooSmall()
+    {
         (new Name('foo\bar\baz'))->slice(0, -4);
     }
 
-    public function testConcat() {
+    public function testConcat()
+    {
         $this->assertEquals(new Name('foo\bar\baz'), Name::concat('foo', 'bar\baz'));
         $this->assertEquals(
             new Name\FullyQualified('foo\bar'),
@@ -98,37 +107,39 @@ class NameTest extends \PHPUnit_Framework_TestCase
         $this->assertNull(Name::concat(null, null));
     }
 
-    public function testIs() {
+    public function testIs()
+    {
         $name = new Name('foo');
-        $this->assertTrue ($name->isUnqualified());
+        $this->assertTrue($name->isUnqualified());
         $this->assertFalse($name->isQualified());
         $this->assertFalse($name->isFullyQualified());
         $this->assertFalse($name->isRelative());
 
         $name = new Name('foo\bar');
         $this->assertFalse($name->isUnqualified());
-        $this->assertTrue ($name->isQualified());
+        $this->assertTrue($name->isQualified());
         $this->assertFalse($name->isFullyQualified());
         $this->assertFalse($name->isRelative());
 
         $name = new Name\FullyQualified('foo');
         $this->assertFalse($name->isUnqualified());
         $this->assertFalse($name->isQualified());
-        $this->assertTrue ($name->isFullyQualified());
+        $this->assertTrue($name->isFullyQualified());
         $this->assertFalse($name->isRelative());
 
         $name = new Name\Relative('foo');
         $this->assertFalse($name->isUnqualified());
         $this->assertFalse($name->isQualified());
         $this->assertFalse($name->isFullyQualified());
-        $this->assertTrue ($name->isRelative());
+        $this->assertTrue($name->isRelative());
     }
 
     /**
      * @expectedException        \InvalidArgumentException
      * @expectedExceptionMessage Expected string, array of parts or Name instance
      */
-    public function testInvalidArg() {
+    public function testInvalidArg()
+    {
         Name::concat('foo', new \stdClass);
     }
 }

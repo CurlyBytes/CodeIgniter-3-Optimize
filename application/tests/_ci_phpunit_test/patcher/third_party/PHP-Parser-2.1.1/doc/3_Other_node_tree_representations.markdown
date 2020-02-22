@@ -1,20 +1,19 @@
-Other node tree representations
-===============================
+# Other node tree representations
 
-It is possible to convert the AST into several textual representations, which serve different uses.
+It is possible to convert the AST into several textual representations, which
+serve different uses.
 
-Simple serialization
---------------------
+## Simple serialization
 
-It is possible to serialize the node tree using `serialize()` and also unserialize it using
-`unserialize()`. The output is not human readable and not easily processable from anything
-but PHP, but it is compact and generates fast. The main application thus is in caching.
+It is possible to serialize the node tree using `serialize()` and also
+unserialize it using `unserialize()`. The output is not human readable and not
+easily processable from anything but PHP, but it is compact and generates fast.
+The main application thus is in caching.
 
-Human readable dumping
-----------------------
+## Human readable dumping
 
-Furthermore it is possible to dump nodes into a human readable format using the `dump` method of
-`PhpParser\NodeDumper`. This can be used for debugging.
+Furthermore it is possible to dump nodes into a human readable format using the
+`dump` method of `PhpParser\NodeDumper`. This can be used for debugging.
 
 ```php
 $code = <<<'CODE'
@@ -86,12 +85,12 @@ array(
 )
 ```
 
-Serialization to XML
---------------------
+## Serialization to XML
 
-It is also possible to serialize the node tree to XML using `PhpParser\Serializer\XML->serialize()`
-and to unserialize it using `PhpParser\Unserializer\XML->unserialize()`. This is useful for
-interfacing with other languages and applications or for doing transformation using XSLT.
+It is also possible to serialize the node tree to XML using
+`PhpParser\Serializer\XML->serialize()` and to unserialize it using
+`PhpParser\Unserializer\XML->unserialize()`. This is useful for interfacing with
+other languages and applications or for doing transformation using XSLT.
 
 ```php
 <?php

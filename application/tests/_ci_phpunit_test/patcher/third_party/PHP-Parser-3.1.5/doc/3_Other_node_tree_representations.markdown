@@ -1,20 +1,19 @@
-Other node tree representations
-===============================
+# Other node tree representations
 
-It is possible to convert the AST into several textual representations, which serve different uses.
+It is possible to convert the AST into several textual representations, which
+serve different uses.
 
-Simple serialization
---------------------
+## Simple serialization
 
-It is possible to serialize the node tree using `serialize()` and also unserialize it using
-`unserialize()`. The output is not human readable and not easily processable from anything
-but PHP, but it is compact and generates quickly. The main application thus is in caching.
+It is possible to serialize the node tree using `serialize()` and also
+unserialize it using `unserialize()`. The output is not human readable and not
+easily processable from anything but PHP, but it is compact and generates
+quickly. The main application thus is in caching.
 
-Human readable dumping
-----------------------
+## Human readable dumping
 
-Furthermore it is possible to dump nodes into a human readable format using the `dump` method of
-`PhpParser\NodeDumper`. This can be used for debugging.
+Furthermore it is possible to dump nodes into a human readable format using the
+`dump` method of `PhpParser\NodeDumper`. This can be used for debugging.
 
 ```php
 $code = <<<'CODE'
@@ -86,11 +85,10 @@ array(
 )
 ```
 
-JSON encoding
--------------
+## JSON encoding
 
-Nodes (and comments) implement the `JsonSerializable` interface. As such, it is possible to JSON
-encode the AST directly using `json_encode()`:
+Nodes (and comments) implement the `JsonSerializable` interface. As such, it is
+possible to JSON encode the AST directly using `json_encode()`:
 
 ```php
 $code = <<<'CODE'
@@ -119,107 +117,106 @@ This will result in the following output (which includes attributes):
 
 ```json
 [
-    {
-        "nodeType": "Stmt_Function",
+  {
+    "nodeType": "Stmt_Function",
+    "byRef": false,
+    "name": "printLine",
+    "params": [
+      {
+        "nodeType": "Param",
+        "type": null,
         "byRef": false,
-        "name": "printLine",
-        "params": [
-            {
-                "nodeType": "Param",
-                "type": null,
-                "byRef": false,
-                "variadic": false,
-                "name": "msg",
-                "default": null,
-                "attributes": {
-                    "startLine": 3,
-                    "endLine": 3
-                }
-            }
-        ],
-        "returnType": null,
-        "stmts": [
-            {
-                "nodeType": "Stmt_Echo",
-                "exprs": [
-                    {
-                        "nodeType": "Expr_Variable",
-                        "name": "msg",
-                        "attributes": {
-                            "startLine": 4,
-                            "endLine": 4
-                        }
-                    },
-                    {
-                        "nodeType": "Scalar_String",
-                        "value": "\n",
-                        "attributes": {
-                            "startLine": 4,
-                            "endLine": 4,
-                            "kind": 2
-                        }
-                    }
-                ],
-                "attributes": {
-                    "startLine": 4,
-                    "endLine": 4
-                }
-            }
-        ],
+        "variadic": false,
+        "name": "msg",
+        "default": null,
         "attributes": {
-            "startLine": 3,
-            "endLine": 5
+          "startLine": 3,
+          "endLine": 3
         }
-    },
-    {
-        "nodeType": "Expr_FuncCall",
-        "name": {
-            "nodeType": "Name",
-            "parts": [
-                "printLine"
-            ],
+      }
+    ],
+    "returnType": null,
+    "stmts": [
+      {
+        "nodeType": "Stmt_Echo",
+        "exprs": [
+          {
+            "nodeType": "Expr_Variable",
+            "name": "msg",
             "attributes": {
-                "startLine": 7,
-                "endLine": 7
+              "startLine": 4,
+              "endLine": 4
             }
-        },
-        "args": [
-            {
-                "nodeType": "Arg",
-                "value": {
-                    "nodeType": "Scalar_String",
-                    "value": "Hello World!!!",
-                    "attributes": {
-                        "startLine": 7,
-                        "endLine": 7,
-                        "kind": 1
-                    }
-                },
-                "byRef": false,
-                "unpack": false,
-                "attributes": {
-                    "startLine": 7,
-                    "endLine": 7
-                }
+          },
+          {
+            "nodeType": "Scalar_String",
+            "value": "\n",
+            "attributes": {
+              "startLine": 4,
+              "endLine": 4,
+              "kind": 2
             }
+          }
         ],
         "attributes": {
-            "startLine": 7,
-            "endLine": 7
+          "startLine": 4,
+          "endLine": 4
         }
+      }
+    ],
+    "attributes": {
+      "startLine": 3,
+      "endLine": 5
     }
+  },
+  {
+    "nodeType": "Expr_FuncCall",
+    "name": {
+      "nodeType": "Name",
+      "parts": ["printLine"],
+      "attributes": {
+        "startLine": 7,
+        "endLine": 7
+      }
+    },
+    "args": [
+      {
+        "nodeType": "Arg",
+        "value": {
+          "nodeType": "Scalar_String",
+          "value": "Hello World!!!",
+          "attributes": {
+            "startLine": 7,
+            "endLine": 7,
+            "kind": 1
+          }
+        },
+        "byRef": false,
+        "unpack": false,
+        "attributes": {
+          "startLine": 7,
+          "endLine": 7
+        }
+      }
+    ],
+    "attributes": {
+      "startLine": 7,
+      "endLine": 7
+    }
+  }
 ]
 ```
 
-There is currently no mechanism to convert JSON back into a node tree. Furthermore, not all ASTs
-can be JSON encoded. In particular, JSON only supports UTF-8 strings.
+There is currently no mechanism to convert JSON back into a node tree.
+Furthermore, not all ASTs can be JSON encoded. In particular, JSON only supports
+UTF-8 strings.
 
-Serialization to XML
---------------------
+## Serialization to XML
 
-It is also possible to serialize the node tree to XML using `PhpParser\Serializer\XML->serialize()`
-and to unserialize it using `PhpParser\Unserializer\XML->unserialize()`. This is useful for
-interfacing with other languages and applications or for doing transformation using XSLT.
+It is also possible to serialize the node tree to XML using
+`PhpParser\Serializer\XML->serialize()` and to unserialize it using
+`PhpParser\Unserializer\XML->unserialize()`. This is useful for interfacing with
+other languages and applications or for doing transformation using XSLT.
 
 ```php
 <?php

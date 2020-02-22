@@ -4,7 +4,8 @@ namespace PhpParser;
 
 class NodeDumperTest extends \PHPUnit_Framework_TestCase
 {
-    private function canonicalize($string) {
+    private function canonicalize($string)
+    {
         return str_replace("\r\n", "\n", $string);
     }
 
@@ -12,13 +13,15 @@ class NodeDumperTest extends \PHPUnit_Framework_TestCase
      * @dataProvider provideTestDump
      * @covers PhpParser\NodeDumper::dump
      */
-    public function testDump($node, $dump) {
+    public function testDump($node, $dump)
+    {
         $dumper = new NodeDumper;
 
         $this->assertSame($this->canonicalize($dump), $this->canonicalize($dumper->dump($node)));
     }
 
-    public function provideTestDump() {
+    public function provideTestDump()
+    {
         return array(
             array(
                 array(),
@@ -65,7 +68,8 @@ class NodeDumperTest extends \PHPUnit_Framework_TestCase
      * @expectedException        \InvalidArgumentException
      * @expectedExceptionMessage Can only dump nodes and arrays.
      */
-    public function testError() {
+    public function testError()
+    {
         $dumper = new NodeDumper;
         $dumper->dump(new \stdClass);
     }
