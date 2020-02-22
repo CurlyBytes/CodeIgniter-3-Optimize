@@ -17,3 +17,6 @@
 
 ## Static code blogs
 - configure https://www.prscheduler.com/docs for time deployment merge
+
+## Nextploit.app
+- nexploit.app https://github.com/settings/installations/6749840 will configure when there is a phone gap configure
