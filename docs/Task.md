@@ -20,3 +20,6 @@
 
 ## Nextploit.app
 - nexploit.app https://github.com/settings/installations/6749840 will configure when there is a phone gap configure
+
+## Mergify
+- configure this app https://github.com/settings/installations/6749837 to automerge pending PR that already passed the CI and other validation https://mergify.io/
