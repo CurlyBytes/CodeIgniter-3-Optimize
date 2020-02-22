@@ -8,9 +8,12 @@
 
 ## Composer library
 - Add PHP-CS-FIXer follow this one https://github.com/FriendsOfPHP/PHP-CS-Fixer
-
+- will add commit fix on local and development practice using this library https://github.com/damianopetrungaro/php-commitizen
 ## Reports Configure
 - Configure ReportBugs for automated CI report https://github.com/settings/installations/5780670 and https://github.com/settings/installations/6730773
+- configure check run reporter for automated CI https://github.com/settings/installations/5780363
+- configure rollbar https://github.com/settings/installations/5780489 for checking exception and issue on the
+- will configure todo app for automated checklist on CI build https://github.com/settings/installations/5779082
 
 
 #Optmization
