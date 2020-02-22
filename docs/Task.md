@@ -1,4 +1,4 @@
-# Todo Checklist
+# My Checklist
 
 ## Github Plugins
 - Configure size-plugin-bot in the repo https://github.com/kuldeepkeshwar/size-plugin-bot and add config file
@@ -13,7 +13,7 @@
 - Configure ReportBugs for automated CI report https://github.com/settings/installations/5780670 and https://github.com/settings/installations/6730773
 - configure check run reporter for automated CI https://github.com/settings/installations/5780363
 - configure rollbar https://github.com/settings/installations/5780489 for checking exception and issue on the
-- will configure todo app for automated checklist on CI build https://github.com/settings/installations/5779082
+- will configure checklist ODOT app for automated checklist on CI build https://github.com/settings/installations/5779082
 
 
 #Optmization
