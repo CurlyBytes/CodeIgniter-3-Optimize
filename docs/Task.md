@@ -27,3 +27,9 @@
 ## Issue label bot
 - will documentation on how to use properly of the issue label bot
 - references https://github.com/settings/installations/5606216
+
+
+# Future
+
+## gitenvs.com
+- install for testing branch and dynamic setup with secure configs
