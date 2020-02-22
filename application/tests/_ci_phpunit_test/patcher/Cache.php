@@ -38,11 +38,11 @@ class Cache
     {
         self::createDir($dir);
         self::$cache_dir = realpath($dir);
-        
+
         if (self::$cache_dir === false) {
             throw new LogicException("No such directory: $dir");
         }
-        
+
         self::$src_cache_dir = self::$cache_dir . '/src';
         self::$tmp_function_whitelist_file =
             self::$cache_dir . '/conf/func_whiltelist.php';

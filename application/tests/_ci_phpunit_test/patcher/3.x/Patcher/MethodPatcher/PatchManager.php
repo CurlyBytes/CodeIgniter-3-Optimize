@@ -48,10 +48,10 @@ class PatchManager
         if (MonkeyPatchManager::$debug) {
             $trace = debug_backtrace();
             $info = Backtrace::getInfo('MethodPatcher', $trace);
-            
+
             $file = $info['file'];
             $line = $info['line'];
-            
+
             if (isset($info['class_method'])) {
                 $called_method = $info['class_method'];
             } elseif (isset($info['function'])) {
@@ -59,7 +59,7 @@ class PatchManager
             } else {
                 $called_method = 'n/a';
             }
-            
+
             $log_args = function () use ($params) {
                 $output = '';
                 foreach ($params as $arg) {

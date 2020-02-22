@@ -122,7 +122,7 @@ class CIPHPUnitTestAutoloader
             }
             return true;
         }
-        
+
         return false;
     }
 
@@ -136,7 +136,7 @@ class CIPHPUnitTestAutoloader
                 unset($this->cache[$class]);
             }
         }
-        
+
         return false;
     }
 }

@@ -112,7 +112,7 @@ class Proxy
     {
         $trace = debug_backtrace();
         $info = Backtrace::getInfo('FunctionPatcher', $trace);
-        
+
         $class = strtolower($info['class']);
         $class_method = strtolower($info['class_method']);
 
@@ -154,7 +154,7 @@ class Proxy
 
             if (is_callable(self::$patches[$function])) {
                 $callable = self::$patches[$function];
-                
+
                 $return = call_user_func_array($callable, $arguments);
                 if ($return !== __GO_TO_ORIG__) {
                     return $return;
