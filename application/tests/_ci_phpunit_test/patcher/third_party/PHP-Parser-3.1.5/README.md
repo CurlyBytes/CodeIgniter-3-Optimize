@@ -1,22 +1,24 @@
-PHP Parser
-==========
+# PHP Parser
 
-[![Build Status](https://travis-ci.org/nikic/PHP-Parser.svg?branch=master)](https://travis-ci.org/nikic/PHP-Parser) [![Coverage Status](https://coveralls.io/repos/github/nikic/PHP-Parser/badge.svg?branch=master)](https://coveralls.io/github/nikic/PHP-Parser?branch=master)
+[![Build Status](https://travis-ci.org/nikic/PHP-Parser.svg?branch=master)](https://travis-ci.org/nikic/PHP-Parser)
+[![Coverage Status](https://coveralls.io/repos/github/nikic/PHP-Parser/badge.svg?branch=master)](https://coveralls.io/github/nikic/PHP-Parser?branch=master)
 
-This is a PHP 5.2 to PHP 7.1 parser written in PHP. Its purpose is to simplify static code analysis and
-manipulation.
+This is a PHP 5.2 to PHP 7.1 parser written in PHP. Its purpose is to simplify
+static code analysis and manipulation.
 
-[**Documentation for version 3.x**][doc_master] (stable; for running on PHP >= 5.5; for parsing PHP 5.2 to PHP 7.1).
+[**Documentation for version 3.x**][doc_master] (stable; for running on PHP >=
+5.5; for parsing PHP 5.2 to PHP 7.1).
 
-[Documentation for version 2.x][doc_2_x] (stable; for running on PHP >= 5.4; for parsing PHP 5.2 to PHP 7.0).
+[Documentation for version 2.x][doc_2_x] (stable; for running on PHP >= 5.4; for
+parsing PHP 5.2 to PHP 7.0).
 
-[Documentation for version 1.x][doc_1_x] (unsupported; for running on PHP >= 5.3; for parsing PHP 5.2 to PHP 5.6).
+[Documentation for version 1.x][doc_1_x] (unsupported; for running on PHP >=
+5.3; for parsing PHP 5.2 to PHP 5.6).
 
-In a Nutshell
--------------
+## In a Nutshell
 
-The parser turns PHP source code into an abstract syntax tree. For example, if you pass the following code into the
-parser:
+The parser turns PHP source code into an abstract syntax tree. For example, if
+you pass the following code into the parser:
 
 ```php
 <?php
@@ -68,32 +70,30 @@ array(
 )
 ```
 
-You can then work with this syntax tree, for example to statically analyze the code (e.g. to find
-programming errors or security issues).
+You can then work with this syntax tree, for example to statically analyze the
+code (e.g. to find programming errors or security issues).
 
-Additionally, you can convert a syntax tree back to PHP code. This allows you to do code preprocessing
-(like automatedly porting code to older PHP versions).
+Additionally, you can convert a syntax tree back to PHP code. This allows you to
+do code preprocessing (like automatedly porting code to older PHP versions).
 
-Installation
-------------
+## Installation
 
 The preferred installation method is [composer](https://getcomposer.org):
 
     php composer.phar require nikic/php-parser
 
-Documentation
--------------
+## Documentation
 
- 1. [Introduction](doc/0_Introduction.markdown)
- 2. [Usage of basic components](doc/2_Usage_of_basic_components.markdown)
- 3. [Other node tree representations](doc/3_Other_node_tree_representations.markdown)
- 4. [Code generation](doc/4_Code_generation.markdown)
+1.  [Introduction](doc/0_Introduction.markdown)
+2.  [Usage of basic components](doc/2_Usage_of_basic_components.markdown)
+3.  [Other node tree representations](doc/3_Other_node_tree_representations.markdown)
+4.  [Code generation](doc/4_Code_generation.markdown)
 
 Component documentation:
 
- 1. [Error handling](doc/component/Error_handling.markdown)
- 2. [Lexer](doc/component/Lexer.markdown)
+1.  [Error handling](doc/component/Error_handling.markdown)
+2.  [Lexer](doc/component/Lexer.markdown)
 
- [doc_1_x]: https://github.com/nikic/PHP-Parser/tree/1.x/doc
- [doc_2_x]: https://github.com/nikic/PHP-Parser/tree/2.x/doc
- [doc_master]: https://github.com/nikic/PHP-Parser/tree/master/doc
+[doc_1_x]: https://github.com/nikic/PHP-Parser/tree/1.x/doc
+[doc_2_x]: https://github.com/nikic/PHP-Parser/tree/2.x/doc
+[doc_master]: https://github.com/nikic/PHP-Parser/tree/master/doc

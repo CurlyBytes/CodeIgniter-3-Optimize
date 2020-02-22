@@ -1,16 +1,15 @@
-Upgrading from PHP-Parser 0.9 to 1.0
-====================================
+# Upgrading from PHP-Parser 0.9 to 1.0
 
 ### PHP version requirements
 
-PHP-Parser now requires PHP 5.3 or newer to run. It is however still possible to *parse* PHP 5.2 source code, while
-running on a newer version.
+PHP-Parser now requires PHP 5.3 or newer to run. It is however still possible to
+_parse_ PHP 5.2 source code, while running on a newer version.
 
 ### Move to namespaced names
 
-The library has been moved to use namespaces with the `PhpParser` vendor prefix. However, the old names using
-underscores are still available as aliases, as such most code should continue running on the new version without
-further changes.
+The library has been moved to use namespaces with the `PhpParser` vendor prefix.
+However, the old names using underscores are still available as aliases, as such
+most code should continue running on the new version without further changes.
 
 Old (still works, but discouraged):
 
@@ -26,20 +25,23 @@ $parser = new \PhpParser\Parser(new PhpParser\Lexer\Emulative);
 $prettyPrinter = new \PhpParser\PrettyPrinter\Standard;
 ```
 
-Note that the `PHPParser` prefix was changed to `PhpParser`. While PHP class names are technically case-insensitive,
-the autoloader will not be able to load `PHPParser\Parser` or other case variants.
+Note that the `PHPParser` prefix was changed to `PhpParser`. While PHP class
+names are technically case-insensitive, the autoloader will not be able to load
+`PHPParser\Parser` or other case variants.
 
-Due to conflicts with reserved keywords, some class names now end with an underscore, e.g. `PHPParser_Node_Stmt_Class`
-is now `PhpParser\Node\Stmt\Class_`. (But as usual, the old name is still available.)
+Due to conflicts with reserved keywords, some class names now end with an
+underscore, e.g. `PHPParser_Node_Stmt_Class` is now
+`PhpParser\Node\Stmt\Class_`. (But as usual, the old name is still available.)
 
 ### Changes to `Node::getType()`
 
-The `Node::getType()` method continues to return names using underscores instead of namespace separators and also does
-not contain the trailing underscore that may be present in the class name. As such its output will not change in many
+The `Node::getType()` method continues to return names using underscores instead
+of namespace separators and also does not contain the trailing underscore that
+may be present in the class name. As such its output will not change in many
 cases.
 
-However, some node classes have been moved to a different namespace or renamed, which will result in a different
-`Node::getType()` output:
+However, some node classes have been moved to a different namespace or renamed,
+which will result in a different `Node::getType()` output:
 
 ```
 Expr_AssignBitwiseAnd => Expr_AssignOp_BitwiseAnd
@@ -89,33 +91,36 @@ Scalar_NSConst        => Scalar_MagicConst_Namespace
 Scalar_TraitConst     => Scalar_MagicConst_Trait
 ```
 
-These changes may affect custom pretty printers and code comparing the return value of `Node::getType()` to specific
-strings.
+These changes may affect custom pretty printers and code comparing the return
+value of `Node::getType()` to specific strings.
 
 ### Miscellaneous
 
-  * The classes `Template` and `TemplateLoader` have been removed. You should use some other [code generation][code_gen]
-    project built on top of PHP-Parser instead.
+- The classes `Template` and `TemplateLoader` have been removed. You should use
+  some other [code generation][code_gen] project built on top of PHP-Parser
+  instead.
 
-  * The `PrettyPrinterAbstract::pStmts()` method now emits a leading newline if the statement list is not empty.
-    Custom pretty printers should remove the explicit newline before `pStmts()` calls.
+- The `PrettyPrinterAbstract::pStmts()` method now emits a leading newline if
+  the statement list is not empty. Custom pretty printers should remove the
+  explicit newline before `pStmts()` calls.
 
-    Old:
+  Old:
 
-    ```php
-    public function pStmt_Trait(PHPParser_Node_Stmt_Trait $node) {
-        return 'trait ' . $node->name
-             . "\n" . '{' . "\n" . $this->pStmts($node->stmts) . "\n" . '}';
-    }
-    ```
+  ```php
+  public function pStmt_Trait(PHPParser_Node_Stmt_Trait $node) {
+      return 'trait ' . $node->name
+           . "\n" . '{' . "\n" . $this->pStmts($node->stmts) . "\n" . '}';
+  }
+  ```
 
-    New:
+  New:
 
-    ```php
-    public function pStmt_Trait(Stmt\Trait_ $node) {
-        return 'trait ' . $node->name
-             . "\n" . '{' . $this->pStmts($node->stmts) . "\n" . '}';
-    }
-    ```
+  ```php
+  public function pStmt_Trait(Stmt\Trait_ $node) {
+      return 'trait ' . $node->name
+           . "\n" . '{' . $this->pStmts($node->stmts) . "\n" . '}';
+  }
+  ```
 
-  [code_gen]: https://github.com/nikic/PHP-Parser/wiki/Projects-using-the-PHP-Parser#code-generation
+[code_gen]:
+  https://github.com/nikic/PHP-Parser/wiki/Projects-using-the-PHP-Parser#code-generation
