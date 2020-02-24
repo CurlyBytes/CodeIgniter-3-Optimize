@@ -1,0 +1,54 @@
+# PHP
+# Test and package your PHP project.
+# Add steps that run tests, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/php
+
+trigger:
+  - master
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  phpVersion: 7.2
+
+steps:
+  - script: |
+      sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+      sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
+      sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
+      sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
+      sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
+      php -version
+    displayName: "Use PHP version $(phpVersion)"
+
+  - script: |
+      composer fix-cache
+      composer install-production
+    displayName: "composer install"
+
+  - task: PowerShell@2
+    inputs:
+      targetType: "inline"
+      script: "phpunit --dump-xdebug-filter ../../bin/xdebug-filter.php"
+      pwsh: true
+      workingDirectory: "$(system.defaultWorkingDirectory)/application/tests"
+
+  - task: PowerShell@2
+    inputs:
+      targetType: "inline"
+      script: "phpunit --prepend ../../bin/xdebug-filter.php -vvv --testdox --colors=always"
+      pwsh: true
+      workingDirectory: "$(system.defaultWorkingDirectory)/application/tests"
+
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: "JUnit"
+      testResultsFiles: "**/bin/build/logs/junit.xml"
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: "$(system.defaultWorkingDirectory)"
+      includeRootFolder: false
+
+  - task: PublishBuildArtifacts@1
