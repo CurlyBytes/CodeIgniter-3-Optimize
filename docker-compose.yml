@@ -1,0 +1,46 @@
+version: "3.2"
+services:
+  php:
+    build: 
+      context: .
+    image: cocoytech/project-name:1.0.0
+    networks:
+      - frontend
+      - backend
+    environment:
+      - MYSQL_HOST=project-name-mysql-app
+      - MYSQL_USER=globaladminusername
+      - MYSQL_PASSWORD=supersecurepass@2020!
+      - MYSQL_DB=sample_project_db
+    volumes:
+      - ./www/:/var/www/html/
+    ports:
+      - "30001:80"
+    container_name: moe-php-app
+  mysql:
+    image: mysql:5.7
+    networks:
+      - backend
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_USER=globaladminusername
+      - MYSQL_PASSWORD=supersecurepass@2020! 
+      - MYSQL_DATABASE=sample_project_db
+    container_name: project-name-mysql-app
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    depends_on:
+      - mysql
+    networks:
+      - backend
+    ports:
+      - "30002:80"
+    environment:
+      - PMA_HOST=project-name-mysql-app
+      - PMA_PORT= 3306
+    volumes:
+      - /sessions
+    container_name: moe-phpmyadmin-app
+networks:
+  frontend:
+  backend:
