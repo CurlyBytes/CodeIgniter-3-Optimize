@@ -10,4 +10,4 @@ RUN mkdir /application \
 
 COPY ./ /application/project-name/www/
 
-RUN cp -r /application/project-name/www/* /var/www/html/.
+RUN cp -r /application/project-name/www/public/* /var/www/html/.

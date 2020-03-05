@@ -90,8 +90,16 @@ Clone the project
 
 <!--
 Todo: Composer install
-Todo: Docker yaml install
 -->
+
+#### Docker Container
+```docker
+docker build . -t cocoytech/project-name:1.0.0
+
+docker run -d -it -p 50001:80 --name "container-project-name" -v "$(pwd)"/www:/var/www/html cocoytech/project-name:1.0.0
+
+docker-compose up --build
+```
 
 ### Developing
 

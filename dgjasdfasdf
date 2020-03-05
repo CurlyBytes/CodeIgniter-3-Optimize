@@ -1,0 +1,127 @@
+[33mcommit 65fabeb57f957e6d11360555785bfc5482b76921[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/docker[m[33m)[m
+Author: Francisco S. Abayon <francisco.abayon@rafi.ph>
+Date:   Thu Mar 5 20:20:36 2020 +0800
+
+    Fix docker issue on windows 10
+
+[33mcommit 37e6cc955cd2afea4a353547dd9433b087da9c5f[m
+Author: Francisco S. Abayon <francisco.abayon@rafi.ph>
+Date:   Thu Mar 5 16:38:12 2020 +0800
+
+    Add docker file for php apache and mysql pdo
+
+[33mcommit 7ad53d9715eca93b240ff31c9a4b18578874b724[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: cocoytech <55616292+cocoytech@users.noreply.github.com>
+Date:   Mon Feb 24 21:35:08 2020 +0800
+
+    PR: Add CI using Azure pipelines (#8)
+    
+    * Set up CI with Azure Pipelines
+    
+    [skip ci]
+    
+    * Update azure-pipelines.yml for Azure Pipelines
+    
+    * PR: Restyled by prettier-yaml (#9)
+    
+    Co-authored-by: restyled-io[bot] <32688539+restyled-io[bot]@users.noreply.github.com>
+
+[33mcommit 73efa031a4ef1b09bcbb192c92ef00733cb3d4b3[m[33m ([m[1;31morigin/issue-7-Dependabot_couldn_t_fetch_the_branch/reference_for_dompdf/dompdf[m[33m)[m
+Author: cocoytech <55616292+cocoytech@users.noreply.github.com>
+Date:   Sat Feb 22 21:33:48 2020 +0800
+
+    PR : must use Kenji template with more better standard structure (#5)
+    
+    * feat: add kenji ci structure template
+    
+    * test: using kenji ci test template
+    
+    * feat: add tests output build with different format
+    
+    * fix: composer.json on phpunit.xml file
+    
+    * Restyle PR : must use Kenji template with more better standard structure (#6)
+    
+    * Restyled by jq
+    
+    * Restyled by php-cs-fixer
+    
+    * Restyled by prettier-markdown
+    
+    * Restyled by prettier-yaml
+    
+    * Restyled by shellharden
+    
+    * Restyled by shfmt
+    
+    * Restyled by whitespace
+    
+    Co-authored-by: rmfitcocoy <40483056+rmfitcocoy@users.noreply.github.com>
+    Co-authored-by: restyled-io[bot] <32688539+restyled-io[bot]@users.noreply.github.com>
+
+[33mcommit 2d594e27cdff117a64910bd608d8849c3cf6d731[m
+Author: cocoytech <55616292+cocoytech@users.noreply.github.com>
+Date:   Sat Feb 22 15:08:22 2020 +0800
+
+    PR: Update basic configs on github apps with standard setup (#1)
+    
+    * Update issue templates
+    
+    * Add whitesource config from whitesource bolt
+    
+    * Add TaskList.md for simple trackking todolist
+    
+    * chore: add restyle.io and php-cs-fixer in list
+    
+    * chore: add reportbugz ci checklist
+    
+    * chore: add prscheduler on tasklist
+    
+    * chore: add nextpoitapp on tasklist
+    
+    * chore: add mergify on tasklist
+    
+    * feat: add ml bot to detet issue,question or enhancement
+    
+    * chore: add issue_label_bot on tasklist
+    
+    * chore: add gitenvs.com on tasklist
+    
+    * feat: add bot to check need-traige with label
+    
+    * feat: add bot to lock issue when the ticket is close
+    
+    * feat: add bot to lock pull request upon close
+    
+    * feat: add style rules in pr title and commit
+    
+    * feat: add badge.yaml to auto add labels base on commit title
+    
+    * feat: add auto close label on resolve issues
+    
+    * fix: task.md about ODOT app from github
+    
+    * Restyled by prettier-markdown
+    
+    * docs: add  pull request template
+    
+    * chore: add vscode configs
+    
+    * docs: add coc,changelog,security,term and security
+    
+    * docs: update readme contetnt
+    
+    * chore: update gitignore file
+    
+    * fix: todo files and project name ownership
+    
+    * Restyled by prettier-markdown (#3)
+    
+    Co-authored-by: rmfitcocoy <40483056+rmfitcocoy@users.noreply.github.com>
+    Co-authored-by: restyled-io[bot] <32688539+restyled-io[bot]@users.noreply.github.com>
+
+[33mcommit 3886b31d708d789b42e20006d982dcd52e931dd3[m
+Author: cocoytech <55616292+cocoytech@users.noreply.github.com>
+Date:   Fri Feb 21 22:19:59 2020 +0800
+
+    Initial commit
