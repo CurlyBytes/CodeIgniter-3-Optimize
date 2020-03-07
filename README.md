@@ -98,7 +98,12 @@ docker build . -t cocoytech/project-name:1.0.0
 
 docker run -d -it -p 50001:80 --name "container-project-name" -v "$(pwd)"/www:/var/www/html cocoytech/project-name:1.0.0
 
-docker-compose up --build
+docker-compose up -d --build
+docker-compose down
+or
+docker-compose run --rm composer update
+docker-compose run --rm npm run dev
+docker-compose run --rm artisan migrate
 ```
 
 ### Developing

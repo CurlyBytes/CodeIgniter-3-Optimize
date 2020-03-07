@@ -1,13 +1,14 @@
-FROM php:7.2-apache
+FROM php:7.2-fpm-alpine
 
-RUN apt-get update && apt-get install -y
+WORKDIR /var/www/html
 
-RUN docker-php-ext-install mysqli pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql
+#RUN pecl install xdebug
+#RUN docker-php-ext-enable xdebug
 
-RUN mkdir /application \
- && mkdir /application/project-name \
- && mkdir /application/project-name/www
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY ./ /application/project-name/www/
+COPY composer.json composer.json
+RUN composer install 
 
-RUN cp -r /application/project-name/www/public/* /var/www/html/.
+COPY ./ /var/www/html

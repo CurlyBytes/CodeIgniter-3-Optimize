@@ -1,46 +1,92 @@
-version: "3.2"
+version: '3'
+
+networks:
+  frontend:
+  backend:
+
 services:
-  php:
-    build: 
-      context: .
-    image: cocoytech/project-name:1.0.0
-    networks:
-      - frontends
-      - backends
-    environment:
-      - MYSQL_HOST=cocoytech-host-mysql-app
-      - MYSQL_USER=cocoytechadminuser
-      - MYSQL_PASSWORD=P@ssw0rd2020!
-      - MYSQL_DB=cocoytech_db
-    volumes:
-      - ./www/:/var/www/html/public/
+  
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
     ports:
-      - "60001:80"
-    container_name: cocoytech-php-app
-  mysql:
-    image: mysql:5.7
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - mysql
     networks:
-      - backends
+      - frontend
+      - backend
+
+  mysql:
+    image: mysql:5.7.22
+    container_name: mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=rootpassword
-      - MYSQL_USER=cocoytechadminuser
-      - MYSQL_PASSWORD=P@ssw0rd2020! 
-      - MYSQL_DATABASE=cocoytech_db
-    container_name: cocoytech-mysql-app
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - backend
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.7
     depends_on:
       - mysql
     networks:
-      - backends
+      - backend
     ports:
-      - "60002:80"
+      - "30002:80"
     environment:
-      - PMA_HOST=cocoytech-host-mysql-app
+      - PMA_HOST=mysql
       - PMA_PORT= 3306
     volumes:
       - /sessions
-    container_name: cocoytech-phpmyadmin-app
-networks:
-  frontends:
-  backends:
+    container_name: moe-phpmyadmin-app
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    #comment if not build with specific name and tag
+    image: cocoytech/project-name:1.0.0
+    container_name: php
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - frontend
+      - backend
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=moeuser
+      - MYSQL_PASSWORD=moepass
+      - MYSQL_DB=moe_db
+
+  composer:
+    image: composer:latest
+    container_name: composer
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - php
+    networks:
+      - frontend
+
+  npm:
+    image: node:13.7
+    container_name: npm
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+
